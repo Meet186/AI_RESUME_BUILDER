@@ -15,6 +15,13 @@ const CreateNewResume = (data) =>
     data,
   });
 
+  const getUserResume = (userEmail) =>
+  axiosClient.get(
+    `/ai-resumes?filters[user_email][$eq]=${encodeURIComponent(userEmail)}`
+  );
+
+
 export default {
   CreateNewResume,
+  getUserResume,
 };

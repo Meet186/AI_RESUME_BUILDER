@@ -12,11 +12,13 @@ import { Input } from "../../components/ui/input";
 import { v4 as uuidv4 } from "uuid";
 import GlobalApi from "../../../service/GlobalApi";
 import { useUser } from '@clerk/react'
+import { useNavigate, useNavigation } from "react-router";
 const AddResume = () => {
     const [dialog, setOpenDialog] = useState(false);
     const [resumeTitle, setResumeTitle] = useState("");
     const { user } = useUser();
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigate();
     const onCreate = async () => {
         setLoading(true);
         const title = resumeTitle.trim();
@@ -30,7 +32,12 @@ const AddResume = () => {
         };
         try {
             const resp = await GlobalApi.CreateNewResume(data);
-            console.log(resp.data);
+            
+
+            if (resp) {
+                setLoading(false);
+                navigation('/dashboard/resume/' + resp.data.data.documentId + '/edit')
+            }
         } catch (error) {
             console.log("Full Error:", error);
             console.log("Response:", error.response?.data);
