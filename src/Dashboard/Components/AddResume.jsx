@@ -32,8 +32,6 @@ const AddResume = () => {
         };
         try {
             const resp = await GlobalApi.CreateNewResume(data);
-            
-
             if (resp) {
                 setLoading(false);
                 navigation('/dashboard/resume/' + resp.data.data.documentId + '/edit')
