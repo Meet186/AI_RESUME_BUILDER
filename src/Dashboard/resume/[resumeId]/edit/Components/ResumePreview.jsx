@@ -8,33 +8,22 @@ import SkillsPreview from './preview/SkillsPreview'
 import Templete1 from './Templetes/templete1'
 import Templete2 from './Templetes/Templete2'
 import Templete3 from './Templetes/Templete3'
+import Deafult from './Templetes/Deafult'
 
 const ResumePreview = () => {
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
-  return (
-    // <div className='shadow-lg h-full p-14 border-t-[20px]'
-    //   style={{
-    //     borderColor: resumeInfo?.themeColor
-    //   }}
-    // >
-    //   {/* personal deatils */}
-    //   <PersonalDetailsPreview resumeInfo={resumeInfo} />
+  const { resumeInfo } = useContext(ResumeInfoContext)
+  const templateId = resumeInfo?.template || 'default'
 
-    //   {/* Summery */}
-    //   <SummeryPreview resumeInfo={resumeInfo} />
+  const templates = {
+    default: Deafult,
+    classic: Templete1,
+    modern: Templete2,
+    creative: Templete3,
+  }
 
-    //   {/* professional experience */}
-    //   <ExperiencePreview resumeInfo={resumeInfo} />
+  const SelectedTemplate = templates[templateId] || Templete1
 
-    //   {/* Eductional */}
-    //   <EducationalPreview resumeInfo={resumeInfo} />
-    //   {/* Skills */}
-    //   <SkillsPreview resumeInfo={resumeInfo} />
-    // </div>
-    // <Templete1 resumeInfo={resumeInfo}/> 
-    // <Templete2 resumeInfo={resumeInfo}/>
-    <Templete3 resumeInfo={resumeInfo}/>
-  )
+  return <SelectedTemplate resumeInfo={resumeInfo} />
 }
 
 export default ResumePreview
