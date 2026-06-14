@@ -3,7 +3,7 @@ import { Notebook } from 'lucide-react';
 
 const ResumeCardItem = ({ resume }) => {
     return (
-       <Link to={`/dashboard/resume/${resume.resume_id}/edit`}>
+       <Link to={`/dashboard/resume/${resume.documentId}/edit`}>
           <div
                 className="p-14 bg-secondary flex
         items-center justify-center h-[280px]

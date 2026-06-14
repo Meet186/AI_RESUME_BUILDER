@@ -20,8 +20,13 @@ const CreateNewResume = (data) =>
     `/ai-resumes?filters[user_email][$eq]=${encodeURIComponent(userEmail)}`
   );
 
+  const updateResumeDetails = (id,data)=>{
+    axiosClient.put("/ai-resumes/" + id,data)
+  }
+
 
 export default {
   CreateNewResume,
   getUserResume,
+  updateResumeDetails
 };
