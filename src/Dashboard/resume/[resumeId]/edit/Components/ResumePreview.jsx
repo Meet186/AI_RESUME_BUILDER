@@ -5,29 +5,35 @@ import SummeryPreview from './preview/SummeryPreview'
 import ExperiencePreview from './preview/ExperiencePreview'
 import EducationalPreview from './preview/EducationalPreview'
 import SkillsPreview from './preview/SkillsPreview'
+import Templete1 from './Templetes/templete1'
+import Templete2 from './Templetes/Templete2'
+import Templete3 from './Templetes/Templete3'
 
 const ResumePreview = () => {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
   return (
-    <div className='shadow-lg h-full p-14 border-t-[20px]'
-      style={{
-        borderColor: resumeInfo?.themeColor
-      }}
-    >
-      {/* personal deatils */}
-      <PersonalDetailsPreview resumeInfo={resumeInfo} />
+    // <div className='shadow-lg h-full p-14 border-t-[20px]'
+    //   style={{
+    //     borderColor: resumeInfo?.themeColor
+    //   }}
+    // >
+    //   {/* personal deatils */}
+    //   <PersonalDetailsPreview resumeInfo={resumeInfo} />
 
-      {/* Summery */}
-      <SummeryPreview resumeInfo={resumeInfo} />
+    //   {/* Summery */}
+    //   <SummeryPreview resumeInfo={resumeInfo} />
 
-      {/* professional experience */}
-      <ExperiencePreview resumeInfo={resumeInfo} />
+    //   {/* professional experience */}
+    //   <ExperiencePreview resumeInfo={resumeInfo} />
 
-      {/* Eductional */}
-      <EducationalPreview resumeInfo={resumeInfo} />
-      {/* Skills */}
-      <SkillsPreview resumeInfo={resumeInfo} />
-    </div>
+    //   {/* Eductional */}
+    //   <EducationalPreview resumeInfo={resumeInfo} />
+    //   {/* Skills */}
+    //   <SkillsPreview resumeInfo={resumeInfo} />
+    // </div>
+    // <Templete1 resumeInfo={resumeInfo}/> 
+    // <Templete2 resumeInfo={resumeInfo}/>
+    <Templete3 resumeInfo={resumeInfo}/>
   )
 }
 
