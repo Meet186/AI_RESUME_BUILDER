@@ -21,7 +21,7 @@ const ResumePreview = () => {
     creative: Templete3,
   }
 
-  const SelectedTemplate = templates[templateId] || Templete1
+  const SelectedTemplate = templates[templateId] || Deafult
 
   return <SelectedTemplate resumeInfo={resumeInfo} />
 }

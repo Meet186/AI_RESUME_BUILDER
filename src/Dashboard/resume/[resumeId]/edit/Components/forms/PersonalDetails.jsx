@@ -1,19 +1,25 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ResumeInfoContext } from "../../../../../../Context/ResumeInfoContext";
 import { Input } from "../../../../../../components/ui/input";
 import { Button } from "../../../../../../components/ui/button";
 import { useParams } from "react-router";
 import GlobalApi from "../../../../../../../service/GlobalApi";
 import { LoaderCircle } from "lucide-react";
-import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 const PersonalDetails = ({ enableNext }) => {
     const params = useParams();
 
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({ ...resumeInfo });
+    const [imageFile, setImageFile] = useState(null);
+    const [previewImage, setPreviewImage] = useState(resumeInfo?.userImage || "");
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setFormData({ ...resumeInfo });
+        setPreviewImage(resumeInfo?.userImage || "");
+    }, [resumeInfo]);
 
     const handleInputChange = (e) => {
         enableNext(false);
@@ -33,21 +39,59 @@ const PersonalDetails = ({ enableNext }) => {
         });
     };
 
+    const handleFileChange = (e) => {
+        enableNext(false);
+        const file = e.target.files?.[0] || null;
+        setImageFile(file);
+
+        if (file) {
+            setPreviewImage(URL.createObjectURL(file));
+        }
+    };
+
     const onSave = async (e) => {
         e.preventDefault();
 
         try {
             setLoading(true);
 
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            await GlobalApi.updateResumeDetails(params?.resumeId, {
-                data: formData,
+            const payload = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                jobTitle: formData.jobTitle,
+                address: formData.address,
+                phone: formData.phone,
+                email: formData.email,
+            };
+
+            if (imageFile) {
+                const uploadRes = await GlobalApi.uploadUserImage(imageFile);
+                const fileData = uploadRes?.data?.[0];
+
+                if (fileData?.id) {
+                    payload.userImage = fileData.id;
+                }
+
+                if (fileData?.url) {
+                    const imageUrl = fileData.url.startsWith("http")
+                        ? fileData.url
+                        : `http://localhost:1337${fileData.url}`;
+                    setPreviewImage(imageUrl);
+                }
+            }
+
+            await GlobalApi.updateResumeDetails(params?.resumeId, payload);
+
+            setResumeInfo({
+                ...resumeInfo,
+                ...payload,
+                userImage: previewImage || resumeInfo.userImage,
             });
 
             toast.success("Resume updated successfully");
             enableNext(true);
         } catch (error) {
-            console.error(error);
+            console.error("Resume update failed", error?.response?.data || error);
             toast.error("Failed to update resume");
         } finally {
             setLoading(false);
@@ -121,6 +165,19 @@ const PersonalDetails = ({ enableNext }) => {
                             onChange={handleInputChange}
                         />
                     </div>
+
+                    {resumeInfo?.template === "creative" && (
+                        <div className="col-span-2">
+                            <label>Upload Image</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className="mt-2 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                            />
+                            
+                        </div>
+                    )}
                 </div>
 
                 <div className="mt-5 flex justify-end">

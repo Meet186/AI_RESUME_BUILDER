@@ -15,18 +15,33 @@ const CreateNewResume = (data) =>
     data,
   });
 
-  const getUserResume = (userEmail) =>
+const getUserResume = (userEmail) =>
   axiosClient.get(
     `/ai-resumes?filters[user_email][$eq]=${encodeURIComponent(userEmail)}`
   );
 
-  const updateResumeDetails = (id,data)=>{
-    axiosClient.put("/ai-resumes/" + id,data)
-  }
+const uploadUserImage = (file) => {
+  console.log(file);
+  
+  const formData = new FormData();
+  formData.append("files", file);
 
+  return axios.post("http://localhost:1337/api/upload", formData, {
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+};
+
+const updateResumeDetails = (id, data) => {
+  return axiosClient.put("/ai-resumes/" + id, {
+    data,
+  });
+};
 
 export default {
   CreateNewResume,
   getUserResume,
-  updateResumeDetails
+  uploadUserImage,
+  updateResumeDetails,
 };

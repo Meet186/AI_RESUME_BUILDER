@@ -2,7 +2,7 @@ import React from "react";
 
 const Template3 = ({ resumeInfo }) => {
   return (
-    <div className="bg-white shadow-lg min-h-[1100px] print:shadow-none">
+    <div className="bg-white shadow-lg min-h-275 print:shadow-none">
 
       {/* Header */}
       <div
@@ -13,14 +13,22 @@ const Template3 = ({ resumeInfo }) => {
       >
         {/* Avatar */}
         <div
-          className="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold text-white"
+          className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden bg-center text-3xl font-bold text-white"
           style={{
             backgroundColor:
               resumeInfo?.themeColor || "#ff6666",
           }}
         >
-          {(resumeInfo?.firstName?.[0] || "J") +
-            (resumeInfo?.lastName?.[0] || "C")}
+          {resumeInfo?.userImage || resumeInfo?.img ? (
+            <img
+              src={resumeInfo.userImage || resumeInfo.img}
+              alt={`${resumeInfo?.firstName || ''} ${resumeInfo?.lastName || ''}`}
+              className="object-cover w-full h-full"
+            />
+          ) : (
+            (resumeInfo?.firstName?.[0] || "J") +
+            (resumeInfo?.lastName?.[0] || "C")
+          )}
         </div>
 
         {/* Info */}
