@@ -21,14 +21,12 @@ const getUserResume = (userEmail) =>
   );
 
 const uploadUserImage = (file) => {
-  console.log(file);
-  
   const formData = new FormData();
   formData.append("files", file);
 
-  return axios.post("http://localhost:1337/api/upload", formData, {
+  return axiosClient.post("/upload", formData, {
     headers: {
-      Authorization: `Bearer ${API_KEY}`,
+      "Content-Type": "multipart/form-data",
     },
   });
 };
