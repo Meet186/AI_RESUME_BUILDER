@@ -54,7 +54,6 @@ const PersonalDetails = ({ enableNext }) => {
 
         try {
             setLoading(true);
-
             const payload = {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
@@ -63,7 +62,6 @@ const PersonalDetails = ({ enableNext }) => {
                 phone: formData.phone,
                 email: formData.email,
             };
-
             if (imageFile) {
                 const uploadRes = await GlobalApi.uploadUserImage(imageFile);
                 const fileData = uploadRes?.data?.[0];
@@ -110,6 +108,7 @@ const PersonalDetails = ({ enableNext }) => {
                         <Input
                             name="firstName"
                             required
+                            defaultValue={resumeInfo?.firstName}
                             value={formData.firstName || ""}
                             onChange={handleInputChange}
                         />
@@ -120,6 +119,7 @@ const PersonalDetails = ({ enableNext }) => {
                         <Input
                             name="lastName"
                             required
+                            defaultValue={resumeInfo?.lastName}
                             value={formData.lastName || ""}
                             onChange={handleInputChange}
                         />
@@ -130,6 +130,7 @@ const PersonalDetails = ({ enableNext }) => {
                         <Input
                             name="jobTitle"
                             required
+                            defaultValue={resumeInfo?.jobTitle}
                             value={formData.jobTitle || ""}
                             onChange={handleInputChange}
                         />
@@ -140,6 +141,7 @@ const PersonalDetails = ({ enableNext }) => {
                         <Input
                             name="address"
                             required
+                            defaultValue={resumeInfo?.address}
                             value={formData.address || ""}
                             onChange={handleInputChange}
                         />
@@ -150,6 +152,7 @@ const PersonalDetails = ({ enableNext }) => {
                         <Input
                             name="phone"
                             required
+                            defaultValue={resumeInfo?.phone}
                             value={formData.phone || ""}
                             onChange={handleInputChange}
                         />
@@ -161,6 +164,7 @@ const PersonalDetails = ({ enableNext }) => {
                             name="email"
                             type="email"
                             required
+                            defaultValue={resumeInfo?.email}
                             value={formData.email || ""}
                             onChange={handleInputChange}
                         />

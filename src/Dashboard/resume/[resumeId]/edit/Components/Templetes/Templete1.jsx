@@ -2,7 +2,7 @@ import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
   return (
-    <div className="bg-white shadow-lg min-h-[1100px] print:shadow-none">
+    <div className="bg-white shadow-lg min-h-275 print:shadow-none">
       <div className="grid grid-cols-3">
 
         {/* Sidebar */}

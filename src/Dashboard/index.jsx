@@ -40,7 +40,7 @@ const Dashboard = () => {
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-10 gap-5' >
         <AddResume />
         {isLoading ? (
-          <div className="mt-10 min-h-[240px] flex items-center justify-center">
+          <div className="mt-10 min-h-60 flex items-center justify-center">
             <Loader message="Fetching resumes..." />
           </div>
         ) : (

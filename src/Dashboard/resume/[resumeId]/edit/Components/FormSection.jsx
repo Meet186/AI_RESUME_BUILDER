@@ -3,6 +3,7 @@ import PersonalDetails from './forms/PersonalDetails'
 import { Button } from '../../../../../components/ui/button'
 import { ArrowRight, LayoutGrid, ArrowLeft } from 'lucide-react'
 import { ResumeInfoContext } from '@/Context/ResumeInfoContext'
+import Summery from './forms/Summery'
 const FormSection = () => {
   const templates = [
     { id: 'default', label: 'Default' },
@@ -12,8 +13,8 @@ const FormSection = () => {
   ];
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [showTemplateMenu, setShowTemplateMenu] = useState(false);
-  const [activeFormIndex, setActiveFormIndex] = useState(1);
-  const [enableNext,setEnableNext] = useState(false);
+  const [activeFormIndex, setActiveFormIndex] = useState(2);
+  const [enableNext, setEnableNext] = useState(false);
 
   const selectedTemplate = resumeInfo?.template || 'classic';
 
@@ -67,11 +68,11 @@ const FormSection = () => {
           {activeFormIndex > 1 && <Button
             size='sm' className=""
             onClick={() => setActiveFormIndex(activeFormIndex - 1)}>
-              <ArrowLeft />
-              </Button>}
+            <ArrowLeft />
+          </Button>}
           <Button
-           disabled={!enableNext}
-           className="flex gap-2" size='sm'
+            disabled={!enableNext}
+            className="flex gap-2" size='sm'
             onClick={() => setActiveFormIndex(activeFormIndex + 1)}
           >
             Next<ArrowRight /></Button>
@@ -81,9 +82,10 @@ const FormSection = () => {
 
       {/* personal details */}
 
-      {activeFormIndex == 1 ? <PersonalDetails enableNext={(v)=> setEnableNext(v)} /> : null}
+      {activeFormIndex == 1 ? <PersonalDetails enableNext={(v) => setEnableNext(v)} /> : null}
 
       {/* summery */}
+      {activeFormIndex == 2 ? <Summery enableNext={(v) => setEnableNext(v)} /> : null}
 
       {/* Experience */}
 
