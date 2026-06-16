@@ -4,6 +4,7 @@ import { Button } from '../../../../../components/ui/button'
 import { ArrowRight, LayoutGrid, ArrowLeft } from 'lucide-react'
 import { ResumeInfoContext } from '@/Context/ResumeInfoContext'
 import Summery from './forms/Summery'
+import Experience from './forms/Experience'
 const FormSection = () => {
   const templates = [
     { id: 'default', label: 'Default' },
@@ -13,7 +14,7 @@ const FormSection = () => {
   ];
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [showTemplateMenu, setShowTemplateMenu] = useState(false);
-  const [activeFormIndex, setActiveFormIndex] = useState(2);
+  const [activeFormIndex, setActiveFormIndex] = useState(3);
   const [enableNext, setEnableNext] = useState(false);
 
   const selectedTemplate = resumeInfo?.template || 'classic';
@@ -89,6 +90,7 @@ const FormSection = () => {
 
       {/* Experience */}
 
+      {activeFormIndex == 3 ? <Experience enableNext={(v) => setEnableNext(v)} /> : null}
       {/* Educational Details */}
 
       {/* skills */}

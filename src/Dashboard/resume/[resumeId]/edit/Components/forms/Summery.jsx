@@ -10,7 +10,7 @@ import { AIChatSession } from '../../../../../../../service/AIMODEL'
 
 
 const Summery = ({ enableNext }) => {
-    const prompt = "Job Title: {jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format"
+    
 
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
     const [loading, setLoading] = useState(false)
@@ -53,9 +53,10 @@ const Summery = ({ enableNext }) => {
 
 
     const GenerateSummeryFromAI = async () => {
+        const PROMT = `Job Title: ${resumeInfo?.jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format`
         try {
             setLoading(true);
-            const summaries = await AIChatSession(resumeInfo?.jobTitle);
+            const summaries = await AIChatSession(PROMT);
             console.log("Summaries:", summaries);
             console.log("Is Array:", Array.isArray(summaries));
             setAiGenerateSummeryList(summaries);

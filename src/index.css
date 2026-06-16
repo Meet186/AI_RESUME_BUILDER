@@ -4,7 +4,15 @@
 @import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
+.rsw-ce ul {
+  list-style: disc;
+  padding-left: 2em;
+}
 
+.rsw-ce ol {
+  list-style: decimal;
+  padding-left: 2em;
+}
 @theme inline {
     --font-heading: var(--font-sans);
     --font-sans: 'Geist Variable', sans-serif;

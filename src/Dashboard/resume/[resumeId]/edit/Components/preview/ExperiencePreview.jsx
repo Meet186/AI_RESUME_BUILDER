@@ -23,14 +23,15 @@ const ExperiencePreview = ({ resumeInfo }) => {
                         {experience?.state}
                         <span>{experience?.startDate} To {experience?.currentlyWorking ? 'Present' : experience.endDate} </span>
                     </h2>
-                    <p className='text-xs my-2'>
+                    {/* <p className='text-xs my-2'>
                         {experience.workSummery}
-                    </p>
+                    </p> */}
 
-                </div>
+                    <div dangerouslySetInnerHTML={{__html:experience?.workSummery}}></div>
+                    </div>
             ))}
-        </div>
-    )
+                </div>
+            )
 }
 
-export default ExperiencePreview
+            export default ExperiencePreview

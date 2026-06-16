@@ -17,41 +17,41 @@ const ai = new GoogleGenAI({
 //   return JSON.parse(response.text);
 // };
 
-export const AIChatSession = async (jobTitle) => {
+export const AIChatSession = async (PROMT) => {
 
-     const PROMT = `Job Title: ${jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format`
+   
 
-  const prompt = `
-    Job Title: ${jobTitle}
+  // const prompt = `
+  //   Job Title: ${jobTitle}
 
-    Based on the job title, generate 3 professional resume summaries:
-    1. Fresher
-    2. Mid Level
-    3. Experienced
+  //   Based on the job title, generate 3 professional resume summaries:
+  //   1. Fresher
+  //   2. Mid Level
+  //   3. Experienced
 
-    Each summary should be 3-4 lines.
+  //   Each summary should be 3-4 lines.
 
-    Return ONLY valid JSON in the following format:
+  //   Return ONLY valid JSON in the following format:
 
     
-      {
-        "experience_level": "Fresher",
-        "summary": "..."
-      },
-      {
-        "experience_level": "Mid Level",
-        "summary": "..."
-      },
-      {
-        "experience_level": "Experienced",
-        "summary": "..."
-      }
+  //     {
+  //       "experience_level": "Fresher",
+  //       "summary": "..."
+  //     },
+  //     {
+  //       "experience_level": "Mid Level",
+  //       "summary": "..."
+  //     },
+  //     {
+  //       "experience_level": "Experienced",
+  //       "summary": "..."
+  //     }
     
-  `;
+  // `;
 
   try {
     const response = await ai.models.generateContent({
-     model: "gemini-2.5-flash",
+     model: 'gemini-3.1-flash-lite',
       config: {
         responseMimeType: "application/json",
       },
