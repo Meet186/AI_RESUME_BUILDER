@@ -1,6 +1,13 @@
 import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
+  console.log("Resume Info:", resumeInfo);
+
+  console.log(
+    "Experience Data:",
+    resumeInfo?.experience
+  );
+
   return (
     <div className="bg-white shadow-lg min-h-275 print:shadow-none">
       <div className="grid grid-cols-3">
@@ -148,9 +155,12 @@ const Template1 = ({ resumeInfo }) => {
                     </span>
                   </div>
 
-                  <p className="text-xs leading-5 whitespace-pre-line mt-2">
-                    {exp?.workSummery}
-                  </p>
+                  <div
+                    className="text-xs mt-3 leading-5 [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_li]:mb-1"
+                    dangerouslySetInnerHTML={{
+                      __html: exp?.workSummery || "",
+                    }}
+                  />
                 </div>
               )
             )}

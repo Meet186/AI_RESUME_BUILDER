@@ -26,12 +26,35 @@ const ExperiencePreview = ({ resumeInfo }) => {
                     {/* <p className='text-xs my-2'>
                         {experience.workSummery}
                     </p> */}
+                    <div
+                        className="
+    mt-4
+    text-sm
+    text-gray-700
+    leading-6
 
-                    <div dangerouslySetInnerHTML={{__html:experience?.workSummery}}></div>
-                    </div>
-            ))}
+    [&_ul]:list-disc
+    [&_ul]:pl-6
+    [&_ul]:space-y-2
+
+    [&_ol]:list-decimal
+    [&_ol]:pl-6
+    [&_ol]:space-y-2
+
+    [&_li]:leading-6
+    [&_li]:ml-1
+
+    [&_p]:mb-2
+    [&_strong]:font-semibold
+  "
+                        dangerouslySetInnerHTML={{
+                            __html: experience?.workSummery || "",
+                        }}
+                    />
                 </div>
-            )
+            ))}
+        </div>
+    )
 }
 
-            export default ExperiencePreview
+export default ExperiencePreview

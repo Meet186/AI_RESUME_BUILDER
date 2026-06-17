@@ -24,12 +24,15 @@ const Experience = () => {
     const handleChange = (index, event) => {
         const newEntries = experinceList.slice();
         const { name, value } = event.target;
-        newEntries[index][name] = value;
+        newEntries[index] = {
+            ...newEntries[index],
+            [name]: value,
+        };
         console.log(newEntries)
         setExperinceList(newEntries);
     }
     const AddNewExperience = () => {
-        setExperinceList([...experinceList, formField])
+        setExperinceList([...experinceList, { ...formField }])
     }
     const RemoveExperience = () => {
 
@@ -37,7 +40,10 @@ const Experience = () => {
     }
     const handleRichTextEditor = (e, name, index) => {
         const newEntries = experinceList.slice();
-        newEntries[index][name] = e.target.value;
+        newEntries[index] = {
+            ...newEntries[index],
+            [name]: e.target.value,
+        };
 
         setExperinceList(newEntries);
     }
@@ -100,6 +106,7 @@ const Experience = () => {
                             </div>
                             <div className='col-span-2'>
                                 <RichTextEditor
+                                    index={index}
                                     onRichTextEditorChange={(event) => handleRichTextEditor(event, 'workSummery', index)}
                                 />
                             </div>

@@ -181,9 +181,12 @@ const Template3 = ({ resumeInfo }) => {
                       : ""}
                   </p>
 
-                  <p className="text-xs mt-2 whitespace-pre-line leading-5 text-gray-700">
-                    {exp?.workSummery}
-                  </p>
+                  <div
+                    className="text-xs mt-2 leading-5 text-gray-700 [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_li]:mb-1"
+                    dangerouslySetInnerHTML={{
+                      __html: exp?.workSummery || "",
+                    }}
+                  />
                 </div>
               )
             )}
