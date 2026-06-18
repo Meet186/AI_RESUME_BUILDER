@@ -17,7 +17,7 @@ const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState(3);
   const [enableNext, setEnableNext] = useState(false);
 
-  const selectedTemplate = resumeInfo?.template || 'classic';
+  const selectedTemplate = resumeInfo?.template || 'default';
 
   const handleTemplateChange = (templateId) => {
     if (!resumeInfo) return;

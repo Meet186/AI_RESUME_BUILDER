@@ -1,153 +1,165 @@
 import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
-  console.log("Resume Info:", resumeInfo);
-
-  console.log(
-    "Experience Data:",
-    resumeInfo?.experience
-  );
-
   return (
-    <div className="bg-white shadow-lg min-h-275 print:shadow-none">
+    <div className="bg-white shadow-lg min-h-[1200px] print:shadow-none">
       <div className="grid grid-cols-3">
 
-        {/* Sidebar */}
-        <div className="bg-gray-100 p-6">
-          <h1 className="text-3xl font-light uppercase leading-tight">
-            {resumeInfo?.firstName || "James"}
-          </h1>
-
-          <h1 className="text-3xl font-light uppercase leading-tight">
-            {resumeInfo?.lastName || "Carter"}
-          </h1>
-
-          <p className="text-sm mt-2">
-            {resumeInfo?.jobTitle || "Full Stack Developer"}
-          </p>
-
-          {/* Details */}
-          <div className="mt-8">
-            <h2
-              className="font-bold text-sm border-b pb-2"
-              style={{
-                color: resumeInfo?.themeColor,
-              }}
-            >
-              DETAILS
-            </h2>
-
-            <div className="mt-3 space-y-2">
-              <p className="text-xs break-all">
-                {resumeInfo?.email || "example@gmail.com"}
-              </p>
-
-              <p className="text-xs">
-                {resumeInfo?.phone || "(123) 456-7890"}
-              </p>
-
-              <p className="text-xs">
-                {resumeInfo?.address || "Address"}
-              </p>
-            </div>
-          </div>
-
-          {/* Skills */}
-          <div className="mt-8">
-            <h2
-              className="font-bold text-sm border-b pb-2"
-              style={{
-                color: resumeInfo?.themeColor,
-              }}
-            >
-              SKILLS
-            </h2>
-
-            <div className="mt-4">
-              {resumeInfo?.skills?.length > 0 ? (
-                resumeInfo.skills.map((skill, index) => (
-                  <div
-                    key={skill?.id || index}
-                    className="mb-4"
-                  >
-                    <div className="flex justify-between text-xs mb-1">
-                      <span>{skill?.name}</span>
-                      <span>{skill?.rating}%</span>
-                    </div>
-
-                    <div className="h-2 bg-gray-300 rounded">
-                      <div
-                        className="h-2 rounded"
-                        style={{
-                          width: `${skill?.rating || 0}%`,
-                          backgroundColor:
-                            resumeInfo?.themeColor || "#ff6666",
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))
+        {/* LEFT SIDEBAR */}
+        <div
+          className="text-white p-8"
+          style={{
+            backgroundColor:
+              resumeInfo?.themeColor || "#1f2937",
+          }}
+        >
+          {/* Profile Image */}
+          <div className="flex justify-center mb-10">
+            <div className="w-44 h-44 rounded-full overflow-hidden bg-gray-300">
+              {resumeInfo?.userImage || resumeInfo?.img ? (
+                <img
+                  src={
+                    resumeInfo?.userImage ||
+                    resumeInfo?.img
+                  }
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
               ) : (
-                <p className="text-xs">
-                  No skills added
-                </p>
+                <div className="w-full h-full flex items-center justify-center text-5xl font-bold bg-gray-500">
+                  {(resumeInfo?.firstName?.[0] || "J") +
+                    (resumeInfo?.lastName?.[0] || "C")}
+                </div>
               )}
             </div>
           </div>
-        </div>
 
-        {/* Main Content */}
-        <div className="col-span-2 p-8">
-
-          {/* Summary */}
-          <section>
-            <h2
-              className="font-bold text-lg border-b pb-2"
-              style={{
-                color: resumeInfo?.themeColor,
-              }}
-            >
-              SUMMARY
+          {/* Contact */}
+          <section className="mb-10">
+            <h2 className="text-3xl font-bold mb-2">
+              Contact
             </h2>
 
-            <p className="text-sm leading-6 mt-4 text-gray-700">
+            <div className="w-16 h-1 bg-white mb-6" />
+
+            <div className="space-y-5">
+              <div>
+                <h3 className="font-semibold">
+                  Address
+                </h3>
+                <p className="text-sm opacity-90">
+                  {resumeInfo?.address ||
+                    "New York, USA"}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold">
+                  Phone
+                </h3>
+                <p className="text-sm opacity-90">
+                  {resumeInfo?.phone ||
+                    "+1 234 567 890"}
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold">
+                  Email
+                </h3>
+                <p className="text-sm break-all opacity-90">
+                  {resumeInfo?.email ||
+                    "example@gmail.com"}
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Skills */}
+          <section className="mb-10">
+            <h2 className="text-3xl font-bold mb-2">
+              Skills
+            </h2>
+            <div className="w-16 h-1 bg-white mb-6" />
+            <ul className="list-disc pl-5 space-y-2">
+              {resumeInfo?.skills?.map(
+                (skill, index) => (
+                  <li
+                    key={skill?.id || index}
+                    className="text-sm"
+                  >
+                    {skill?.name}
+                  </li>
+                )
+              )}
+            </ul>
+          </section>
+
+         
+         
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div className="col-span-2 p-12">
+
+          {/* Header */}
+          <div className="mb-16">
+            <h1 className="text-6xl font-bold uppercase">
+              {resumeInfo?.firstName || "James"}{" "}
+              {resumeInfo?.lastName || "Carter"}
+            </h1>
+
+            <p className="text-3xl mt-3 text-gray-700">
+              {resumeInfo?.jobTitle ||
+                "Full Stack Developer"}
+            </p>
+          </div>
+
+          {/* Profile */}
+          <section className="mb-14">
+            <h2 className="text-4xl font-bold">
+              Profile
+            </h2>
+
+            <div className="w-20 h-1 bg-black mt-2 mb-5" />
+
+            <p className="text-gray-700 leading-8">
               {resumeInfo?.summery}
             </p>
           </section>
 
           {/* Experience */}
-          <section className="mt-8">
-            <h2
-              className="font-bold text-lg border-b pb-2"
-              style={{
-                color: resumeInfo?.themeColor,
-              }}
-            >
-              EXPERIENCE
+          <section className="mb-14">
+            <h2 className="text-4xl font-bold">
+              Work Experience
             </h2>
+
+            <div className="w-20 h-1 bg-black mt-2 mb-8" />
 
             {resumeInfo?.experience?.map(
               (exp, index) => (
                 <div
                   key={exp?.id || index}
-                  className="mt-5"
+                  className="mb-8"
                 >
-                  <h3 className="font-bold text-base">
-                    {exp?.title}
-                  </h3>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-bold text-2xl">
+                        {exp?.title}
+                      </h3>
 
-                  <div className="flex justify-between text-sm text-gray-600">
-                    <span>
-                      {exp?.companyName}
-                      {exp?.city
-                        ? `, ${exp.city}`
-                        : ""}
-                      {exp?.state
-                        ? `, ${exp.state}`
-                        : ""}
-                    </span>
+                      <p className="text-gray-700">
+                        {exp?.companyName}
+                        {exp?.city
+                          ? ` • ${exp.city}`
+                          : ""}
+                        {exp?.state
+                          ? `, ${exp.state}`
+                          : ""}
+                      </p>
+                    </div>
 
-                    <span>
+                    <span className="text-sm text-gray-600">
                       {exp?.startDate} -{" "}
                       {exp?.currentlyWorking
                         ? "Present"
@@ -156,9 +168,13 @@ const Template1 = ({ resumeInfo }) => {
                   </div>
 
                   <div
-                    className="text-xs mt-3 leading-5 [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5 [&_li]:mb-1"
+                    className="mt-4 text-sm leading-7 text-gray-700
+                    [&_ul]:list-disc
+                    [&_ul]:pl-5
+                    [&_li]:mb-2"
                     dangerouslySetInnerHTML={{
-                      __html: exp?.workSummery || "",
+                      __html:
+                        exp?.workSummery || "",
                     }}
                   />
                 </div>
@@ -167,40 +183,47 @@ const Template1 = ({ resumeInfo }) => {
           </section>
 
           {/* Education */}
-          <section className="mt-8">
-            <h2
-              className="font-bold text-lg border-b pb-2"
-              style={{
-                color: resumeInfo?.themeColor,
-              }}
-            >
-              EDUCATION
+          <section>
+            <h2 className="text-4xl font-bold">
+              Education
             </h2>
+
+            <div className="w-20 h-1 bg-black mt-2 mb-8" />
 
             {resumeInfo?.education?.map(
               (edu, index) => (
                 <div
                   key={edu?.id || index}
-                  className="mt-4"
+                  className="mb-8"
                 >
                   <div className="flex justify-between">
-                    <h3 className="font-semibold">
-                      {edu?.universityName}
-                    </h3>
+                    <div>
+                      <h3 className="font-bold text-2xl">
+                        {edu?.degree}
+                      </h3>
 
-                    <span className="text-xs">
+                      <p className="text-gray-700">
+                        {
+                          edu?.universityName
+                        }
+                      </p>
+
+                      <p className="text-sm text-gray-600">
+                        {edu?.major}
+                      </p>
+                    </div>
+
+                    <span className="text-sm text-gray-600">
                       {edu?.startDate} -{" "}
                       {edu?.endDate}
                     </span>
                   </div>
 
-                  <p className="text-sm">
-                    {edu?.degree} in {edu?.major}
-                  </p>
-
-                  <p className="text-xs text-gray-600 mt-2">
-                    {edu?.description}
-                  </p>
+                  {edu?.description && (
+                    <p className="mt-2 text-sm text-gray-700 leading-6">
+                      {edu?.description}
+                    </p>
+                  )}
                 </div>
               )
             )}
