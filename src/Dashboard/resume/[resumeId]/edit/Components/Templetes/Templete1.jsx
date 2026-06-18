@@ -2,12 +2,12 @@ import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
   return (
-    <div className="bg-white shadow-lg min-h-[1200px] print:shadow-none">
-      <div className="grid grid-cols-3">
+    <div className="bg-white shadow-lg min-h-[1120px] print:shadow-none">
+      <div className="grid grid-cols-12">
 
-        {/* LEFT SIDEBAR */}
+        {/* Sidebar */}
         <div
-          className="text-white p-8"
+          className="col-span-4 text-white p-6"
           style={{
             backgroundColor:
               resumeInfo?.themeColor || "#1f2937",
@@ -15,18 +15,20 @@ const Template1 = ({ resumeInfo }) => {
         >
           {/* Profile Image */}
           <div className="flex justify-center mb-10">
-            <div className="w-44 h-44 rounded-full overflow-hidden bg-gray-300">
+            <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-300">
               {resumeInfo?.userImage || resumeInfo?.img ? (
                 <img
                   src={
                     resumeInfo?.userImage ||
                     resumeInfo?.img
                   }
-                  alt="profile"
+                  alt={`${resumeInfo?.firstName || ""} ${
+                    resumeInfo?.lastName || ""
+                  }`}
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-5xl font-bold bg-gray-500">
+                <div className="w-full h-full flex items-center justify-center text-3xl font-bold bg-gray-500">
                   {(resumeInfo?.firstName?.[0] || "J") +
                     (resumeInfo?.lastName?.[0] || "C")}
                 </div>
@@ -36,18 +38,19 @@ const Template1 = ({ resumeInfo }) => {
 
           {/* Contact */}
           <section className="mb-10">
-            <h2 className="text-3xl font-bold mb-2">
+            <h2 className="text-2xl font-bold mb-2">
               Contact
             </h2>
 
-            <div className="w-16 h-1 bg-white mb-6" />
+            <div className="w-14 h-1 bg-white mb-5" />
 
             <div className="space-y-5">
               <div>
                 <h3 className="font-semibold">
                   Address
                 </h3>
-                <p className="text-sm opacity-90">
+
+                <p className="text-sm text-gray-200 mt-1">
                   {resumeInfo?.address ||
                     "New York, USA"}
                 </p>
@@ -57,7 +60,8 @@ const Template1 = ({ resumeInfo }) => {
                 <h3 className="font-semibold">
                   Phone
                 </h3>
-                <p className="text-sm opacity-90">
+
+                <p className="text-sm text-gray-200 mt-1">
                   {resumeInfo?.phone ||
                     "+1 234 567 890"}
                 </p>
@@ -67,7 +71,8 @@ const Template1 = ({ resumeInfo }) => {
                 <h3 className="font-semibold">
                   Email
                 </h3>
-                <p className="text-sm break-all opacity-90">
+
+                <p className="text-sm text-gray-200 mt-1 break-all">
                   {resumeInfo?.email ||
                     "example@gmail.com"}
                 </p>
@@ -76,11 +81,13 @@ const Template1 = ({ resumeInfo }) => {
           </section>
 
           {/* Skills */}
-          <section className="mb-10">
-            <h2 className="text-3xl font-bold mb-2">
+          <section>
+            <h2 className="text-2xl font-bold mb-2">
               Skills
             </h2>
-            <div className="w-16 h-1 bg-white mb-6" />
+
+            <div className="w-14 h-1 bg-white mb-5" />
+
             <ul className="list-disc pl-5 space-y-2">
               {resumeInfo?.skills?.map(
                 (skill, index) => (
@@ -94,47 +101,44 @@ const Template1 = ({ resumeInfo }) => {
               )}
             </ul>
           </section>
-
-         
-         
         </div>
 
-        {/* RIGHT CONTENT */}
-        <div className="col-span-2 p-12">
+        {/* Main Content */}
+        <div className="col-span-8 p-8">
 
           {/* Header */}
-          <div className="mb-16">
-            <h1 className="text-6xl font-bold uppercase">
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold uppercase tracking-wide">
               {resumeInfo?.firstName || "James"}{" "}
               {resumeInfo?.lastName || "Carter"}
             </h1>
 
-            <p className="text-3xl mt-3 text-gray-700">
+            <p className="text-xl text-gray-700 mt-2">
               {resumeInfo?.jobTitle ||
                 "Full Stack Developer"}
             </p>
           </div>
 
           {/* Profile */}
-          <section className="mb-14">
-            <h2 className="text-4xl font-bold">
+          <section className="mb-12">
+            <h2 className="text-3xl font-bold">
               Profile
             </h2>
 
-            <div className="w-20 h-1 bg-black mt-2 mb-5" />
+            <div className="w-16 h-1 bg-black mt-2 mb-5" />
 
-            <p className="text-gray-700 leading-8">
+            <p className="text-sm leading-7 text-gray-700">
               {resumeInfo?.summery}
             </p>
           </section>
 
           {/* Experience */}
-          <section className="mb-14">
-            <h2 className="text-4xl font-bold">
+          <section className="mb-12">
+            <h2 className="text-3xl font-bold">
               Work Experience
             </h2>
 
-            <div className="w-20 h-1 bg-black mt-2 mb-8" />
+            <div className="w-16 h-1 bg-black mt-2 mb-6" />
 
             {resumeInfo?.experience?.map(
               (exp, index) => (
@@ -142,9 +146,9 @@ const Template1 = ({ resumeInfo }) => {
                   key={exp?.id || index}
                   className="mb-8"
                 >
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-between gap-4">
                     <div>
-                      <h3 className="font-bold text-2xl">
+                      <h3 className="text-xl font-bold">
                         {exp?.title}
                       </h3>
 
@@ -159,7 +163,7 @@ const Template1 = ({ resumeInfo }) => {
                       </p>
                     </div>
 
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 whitespace-nowrap">
                       {exp?.startDate} -{" "}
                       {exp?.currentlyWorking
                         ? "Present"
@@ -168,10 +172,10 @@ const Template1 = ({ resumeInfo }) => {
                   </div>
 
                   <div
-                    className="mt-4 text-sm leading-7 text-gray-700
+                    className="mt-3 text-sm text-gray-700 leading-6
                     [&_ul]:list-disc
                     [&_ul]:pl-5
-                    [&_li]:mb-2"
+                    [&_li]:mb-1"
                     dangerouslySetInnerHTML={{
                       __html:
                         exp?.workSummery || "",
@@ -184,11 +188,11 @@ const Template1 = ({ resumeInfo }) => {
 
           {/* Education */}
           <section>
-            <h2 className="text-4xl font-bold">
+            <h2 className="text-3xl font-bold">
               Education
             </h2>
 
-            <div className="w-20 h-1 bg-black mt-2 mb-8" />
+            <div className="w-16 h-1 bg-black mt-2 mb-6" />
 
             {resumeInfo?.education?.map(
               (edu, index) => (
@@ -196,9 +200,9 @@ const Template1 = ({ resumeInfo }) => {
                   key={edu?.id || index}
                   className="mb-8"
                 >
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-4">
                     <div>
-                      <h3 className="font-bold text-2xl">
+                      <h3 className="text-xl font-bold">
                         {edu?.degree}
                       </h3>
 
@@ -213,7 +217,7 @@ const Template1 = ({ resumeInfo }) => {
                       </p>
                     </div>
 
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-gray-600 whitespace-nowrap">
                       {edu?.startDate} -{" "}
                       {edu?.endDate}
                     </span>

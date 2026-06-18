@@ -5,6 +5,7 @@ import { ArrowRight, LayoutGrid, ArrowLeft } from 'lucide-react'
 import { ResumeInfoContext } from '@/Context/ResumeInfoContext'
 import Summery from './forms/Summery'
 import Experience from './forms/Experience'
+import Education from './forms/Education'
 const FormSection = () => {
   const templates = [
     { id: 'default', label: 'Default' },
@@ -92,6 +93,7 @@ const FormSection = () => {
 
       {activeFormIndex == 3 ? <Experience enableNext={(v) => setEnableNext(v)} /> : null}
       {/* Educational Details */}
+       {activeFormIndex == 4 ? <Education enableNext={(v) => setEnableNext(v)} /> : null}
 
       {/* skills */}
     </div>

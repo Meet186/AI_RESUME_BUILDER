@@ -14,6 +14,7 @@ const Summery = ({ enableNext }) => {
 
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext)
     const [loading, setLoading] = useState(false)
+    const [loadingAI, setLoadingAI] = useState(false)
     const params = useParams()
     const [summery, setSummery] = useState(resumeInfo?.summery || '')
     const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState([]);
@@ -55,7 +56,7 @@ const Summery = ({ enableNext }) => {
     const GenerateSummeryFromAI = async () => {
         const PROMT = `Job Title: ${resumeInfo?.jobTitle} , Depends on job title give me list of  summery for 3 experience level, Mid Level and Freasher level in 3 -4 lines in array format, With summery and experience_level Field in JSON Format`
         try {
-            setLoading(true);
+            setLoadingAI(true);
             const summaries = await AIChatSession(PROMT);
             console.log("Summaries:", summaries);
             console.log("Is Array:", Array.isArray(summaries));
@@ -63,7 +64,7 @@ const Summery = ({ enableNext }) => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
+            setLoadingAI(false);
         }
     }
 
@@ -75,15 +76,17 @@ const Summery = ({ enableNext }) => {
             <form className='mt-7' onSubmit={onSave}>
                 <div className='flex justify-between items-end'>
                     <label>Add Summery</label>
-                    <Button
-                        onClick={() => GenerateSummeryFromAI()}
-                        variant='outline'
-                        type='button'
-                        size='sm'
-                        className='border-primary text-primary flex gap-2'
-                    >
-                        <Brain className='h-4 w-4' /> Generate from AI
-                    </Button>
+                    <Button variant="outline" size="sm"
+                    onClick={GenerateSummeryFromAI}
+                    disabled={loadingAI}
+                    className="flex gap-2 border-primary text-primary">
+                    {loadingAI ?
+                        <LoaderCircle className='animate-spin' /> :
+                        <>
+                            <Brain className='h-4 w-4' /> Generate from AI
+                        </>
+                    }
+                </Button>
                 </div>
                 <Textarea
                     className='mt-5'

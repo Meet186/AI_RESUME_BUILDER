@@ -4,6 +4,11 @@ import { ResumeInfoContext } from '../../../../../../Context/ResumeInfoContext';
 import { Input } from '@/components/ui/input'
 import { Button } from '../../../../../../components/ui/button';
 import RichTextEditor from '../RichTextEditor';
+import GlobalApi from '../../../../../../../service/GlobalApi';
+import { toast } from 'sonner';
+import { LoaderCircle } from 'lucide-react';
+import { useParams } from 'react-router';
+
 const formField = {
     title: '',
     companyName: '',
@@ -15,10 +20,11 @@ const formField = {
 
 }
 
-const Experience = () => {
+const Experience = ({ enableNext }) => {
     const [experinceList, setExperinceList] = useState([formField]);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
+    const params = useParams()
     // const {resumeInfo,setResumeInfo} = useContext(ResumeInfoContext);
 
     const handleChange = (index, event) => {
@@ -47,10 +53,30 @@ const Experience = () => {
 
         setExperinceList(newEntries);
     }
+    const onSave = () => {
+        setLoading(true)
+        const data = {
+            data: {
+                Experience: experinceList.map(({ id, ...rest }) => rest)
+            }
+        }
+
+        console.log(experinceList)
+
+        GlobalApi.updateResumeDetails(params?.resumeId, data).then(res => {
+            console.log(res);
+            enableNext?.(true)
+            setLoading(false);
+            toast.success('Details updated !')
+        }, (error) => {
+            setLoading(false);
+        })
+
+    }
     useEffect(() => {
         setResumeInfo({
             ...resumeInfo,
-            experience:experinceList
+            experience: experinceList
         })
 
     }, [experinceList])
