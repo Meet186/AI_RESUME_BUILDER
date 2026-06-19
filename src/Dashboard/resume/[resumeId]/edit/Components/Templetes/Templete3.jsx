@@ -106,7 +106,7 @@ const Template3 = ({ resumeInfo }) => {
                       </span>
 
                       <span>
-                        {skill?.rating}%
+                        {skill?.rating * 20}%
                       </span>
                     </div>
 
@@ -115,7 +115,7 @@ const Template3 = ({ resumeInfo }) => {
                         className="h-2 rounded-full"
                         style={{
                           width: `${
-                            skill?.rating || 0
+                            skill?.rating * 20 || 0
                           }%`,
                           backgroundColor:
                             resumeInfo?.themeColor ||

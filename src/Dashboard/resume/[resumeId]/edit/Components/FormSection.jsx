@@ -6,6 +6,7 @@ import { ResumeInfoContext } from '@/Context/ResumeInfoContext'
 import Summery from './forms/Summery'
 import Experience from './forms/Experience'
 import Education from './forms/Education'
+import Skills from './forms/Skills'
 const FormSection = () => {
   const templates = [
     { id: 'default', label: 'Default' },
@@ -15,7 +16,7 @@ const FormSection = () => {
   ];
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [showTemplateMenu, setShowTemplateMenu] = useState(false);
-  const [activeFormIndex, setActiveFormIndex] = useState(4);
+  const [activeFormIndex, setActiveFormIndex] = useState(5);
   const [enableNext, setEnableNext] = useState(false);
 
   const selectedTemplate = resumeInfo?.template || 'default';
@@ -96,6 +97,7 @@ const FormSection = () => {
        {activeFormIndex == 4 ? <Education enableNext={(v) => setEnableNext(v)} /> : null}
 
       {/* skills */}
+       {activeFormIndex == 5 ? <Skills enableNext={(v) => setEnableNext(v)} /> : null}
     </div>
   )
 }

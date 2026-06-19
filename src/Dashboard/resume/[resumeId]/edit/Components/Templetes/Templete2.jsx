@@ -160,7 +160,7 @@ const Template2 = ({ resumeInfo }) => {
                 <div
                   className="h-2 rounded"
                   style={{
-                    width: `${skill?.rating || 0}%`,
+                    width: `${skill?.rating * 20 || 0}%`,
                     backgroundColor:
                       resumeInfo?.themeColor || "#ff6666",
                   }}
