@@ -32,9 +32,9 @@ const uploadUserImage = (file) => {
 };
 
 const updateResumeDetails = (id, data) => {
-  return axiosClient.put("/ai-resumes/" + id, {
-    data,
-  });
+  console.log("API DATA:", JSON.stringify(data, null, 2));
+
+  return axiosClient.put(`/ai-resumes/${id}`, data);
 };
 
 export default {

@@ -25,6 +25,7 @@ const Experience = ({ enableNext }) => {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [loading, setLoading] = useState(false);
     const params = useParams()
+
     // const {resumeInfo,setResumeInfo} = useContext(ResumeInfoContext);
 
     const handleChange = (index, event) => {
@@ -53,26 +54,36 @@ const Experience = ({ enableNext }) => {
 
         setExperinceList(newEntries);
     }
-    const onSave = () => {
-        setLoading(true)
-        const data = {
-            data: {
-                Experience: experinceList.map(({ id, ...rest }) => rest)
-            }
+    const onSave = async () => {
+        try {
+            setLoading(true);
+
+            const data = {
+                data: {
+                    personal_Experience : experinceList.map(({ id, ...rest }) => rest),
+                },
+            };
+
+            console.log("FINAL PAYLOAD");
+            console.log(JSON.stringify(data, null, 2));
+
+            console.log("Sending:", data);
+
+            const res = await GlobalApi.updateResumeDetails(
+                params.resumeId,
+                data
+            );
+
+            console.log(res.data);
+
+            toast.success("Details updated!");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update");
+        } finally {
+            setLoading(false);
         }
-
-        console.log(experinceList)
-
-        GlobalApi.updateResumeDetails(params?.resumeId, data).then(res => {
-            console.log(res);
-            enableNext?.(true)
-            setLoading(false);
-            toast.success('Details updated !')
-        }, (error) => {
-            setLoading(false);
-        })
-
-    }
+    };
     useEffect(() => {
         setResumeInfo({
             ...resumeInfo,

@@ -16,6 +16,8 @@ const Summery = ({ enableNext }) => {
     const [loading, setLoading] = useState(false)
     const [loadingAI, setLoadingAI] = useState(false)
     const params = useParams()
+  
+    
     const [summery, setSummery] = useState(resumeInfo?.summery || '')
     const [aiGeneratedSummeryList, setAiGenerateSummeryList] = useState([]);
 

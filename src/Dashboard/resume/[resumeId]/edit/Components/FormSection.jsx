@@ -15,7 +15,7 @@ const FormSection = () => {
   ];
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [showTemplateMenu, setShowTemplateMenu] = useState(false);
-  const [activeFormIndex, setActiveFormIndex] = useState(3);
+  const [activeFormIndex, setActiveFormIndex] = useState(4);
   const [enableNext, setEnableNext] = useState(false);
 
   const selectedTemplate = resumeInfo?.template || 'default';
