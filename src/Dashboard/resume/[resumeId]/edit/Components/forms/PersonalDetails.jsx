@@ -78,7 +78,7 @@ const PersonalDetails = ({ enableNext }) => {
                 }
             }
 
-            await GlobalApi.updateResumeDetails(params?.resumeId, payload);
+            await GlobalApi.updateResumeDetails0(params?.resumeId, payload);
 
             setResumeInfo({
                 ...resumeInfo,

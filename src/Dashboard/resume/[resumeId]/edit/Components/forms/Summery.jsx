@@ -42,7 +42,7 @@ const Summery = ({ enableNext }) => {
         }
 
         try {
-            const resp = await GlobalApi.updateResumeDetails(params?.resumeId, payload)
+            const resp = await GlobalApi.updateResumeDetails0(params?.resumeId, payload)
             console.log(resp)
             enableNext?.(true)
             toast.success('Details updated')

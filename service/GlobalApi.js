@@ -37,9 +37,17 @@ const updateResumeDetails = (id, data) => {
   return axiosClient.put(`/ai-resumes/${id}`, data);
 };
 
+
+const updateResumeDetails0 = (id, data) => {
+  console.log("API DATA:", JSON.stringify(data, null, 2));
+
+  return axiosClient.put(`/ai-resumes/${id}`, { data });
+};
+
 export default {
   CreateNewResume,
   getUserResume,
   uploadUserImage,
   updateResumeDetails,
+  updateResumeDetails0,
 };
