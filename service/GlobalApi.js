@@ -43,11 +43,12 @@ const updateResumeDetails0 = (id, data) => {
 
   return axiosClient.put(`/ai-resumes/${id}`, { data });
 };
-
+const GetResumeById=(id)=>axiosClient.get('/ai-resumes/'+id+"?populate=*")
 export default {
   CreateNewResume,
   getUserResume,
   uploadUserImage,
   updateResumeDetails,
   updateResumeDetails0,
+  GetResumeById,
 };

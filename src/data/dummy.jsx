@@ -9,7 +9,7 @@ export default{
     themeColor:"#000000",
     img : 'https://thumbs.dreamstime.com/b/handsome-stylish-modern-african-american-business-man-entrepreneur-executive-sitting-outside-office-cheerful-smile-155856257.jpg',
     summery:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    experience:[
+    personal_Experience:[
         {
             id:1,
             title:'Full Stack Developer',
@@ -43,7 +43,7 @@ export default{
             'and back-end systems.'
         }
     ],
-    education:[
+    Education:[
         {
             id:1,
             universityName:'Western Illinois University',

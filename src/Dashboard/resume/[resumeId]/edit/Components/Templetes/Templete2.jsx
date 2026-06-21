@@ -62,7 +62,7 @@ const Template2 = ({ resumeInfo }) => {
           EXPERIENCE
         </h2>
 
-        {resumeInfo?.experience?.map((exp, index) => (
+        {resumeInfo?.personal_Experience?.map((exp, index) => (
           <div
             key={exp?.id || index}
             className="mb-6"

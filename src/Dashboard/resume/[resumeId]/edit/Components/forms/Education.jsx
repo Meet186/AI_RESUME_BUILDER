@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { useParams } from 'react-router';
 import { LoaderCircle } from 'lucide-react';
 
-const Education = ({enableNext}) => {
+const Education = ({ enableNext }) => {
   const [loading, setLoading] = useState(false);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const params = useParams();
@@ -26,11 +26,9 @@ const Education = ({enableNext}) => {
   ])
 
   useEffect(() => {
-    setResumeInfo({
-      ...resumeInfo,
-      education: educationalList
-    })
-  }, [educationalList])
+    resumeInfo && setEducationalList(resumeInfo?.Education)
+  }, [])
+
   const handleChange = (event, index) => {
     const newEntries = educationalList.slice();
     const { name, value } = event.target;
@@ -57,7 +55,7 @@ const Education = ({enableNext}) => {
   const onSave = async () => {
     try {
       setLoading(true);
-
+      enableNext(false);
       const data = {
         data: {
           Education: educationalList.map(({ id, ...rest }) => rest),
@@ -77,7 +75,7 @@ const Education = ({enableNext}) => {
       console.log(res.data);
       enableNext(true)
       toast.success("Details updated!");
-      
+
     } catch (error) {
       console.error(error);
       toast.error("Failed to update");
@@ -86,7 +84,12 @@ const Education = ({enableNext}) => {
     }
   };
 
-
+  useEffect(() => {
+    setResumeInfo({
+      ...resumeInfo,
+      Education: educationalList
+    })
+  }, [educationalList])
 
   return (
     (
@@ -145,11 +148,11 @@ const Education = ({enableNext}) => {
           <div className='flex gap-2'>
             <Button variant="outline" onClick={AddNewEducation} className="text-primary"> + Add More Education</Button>
             <Button
-             variant="outline"
+              variant="outline"
               onClick={RemoveEducation}
-               className="text-primary"
-                disabled={educationalList.length === 1}
-            
+              className="text-primary"
+              disabled={educationalList.length === 1}
+
             > - Remove</Button>
 
           </div>

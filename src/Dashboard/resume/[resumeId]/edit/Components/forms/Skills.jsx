@@ -9,7 +9,7 @@ import GlobalApi from '../../../../../../../service/GlobalApi'
 import { useParams } from 'react-router'
 import { toast } from 'sonner'
 
-const Skills = ({enableNext }) => {
+const Skills = ({ enableNext }) => {
     const [loading, setLoading] = useState(false);
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
     const [skillsList, setSkillsList] = useState([{
@@ -17,6 +17,9 @@ const Skills = ({enableNext }) => {
         rating: 0
     }])
     const params = useParams();
+    useEffect(() => {
+        resumeInfo && setSkillsList(resumeInfo?.skills)
+    }, [])
     const AddNewSkills = () => {
         setSkillsList([...skillsList, {
             name: '',
@@ -38,7 +41,7 @@ const Skills = ({enableNext }) => {
 
             const data = {
                 data: {
-                    skills:skillsList.map(({ id, ...rest }) => rest),
+                    skills: skillsList.map(({ id, ...rest }) => rest),
                 },
             };
 
