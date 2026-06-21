@@ -8,7 +8,7 @@ const Template3 = ({ resumeInfo }) => {
       <div
         className="p-8 flex items-center gap-6"
         style={{
-          backgroundColor: `${resumeInfo?.themeColor || "#ff6666"}20`,
+          backgroundColor: `${resumeInfo?.themeColor || "#000000"}20`,
         }}
       >
         {/* Avatar */}
@@ -16,7 +16,7 @@ const Template3 = ({ resumeInfo }) => {
           className="w-24 h-24 rounded-full flex items-center justify-center overflow-hidden bg-center text-3xl font-bold text-white"
           style={{
             backgroundColor:
-              resumeInfo?.themeColor || "#ff6666",
+              resumeInfo?.themeColor || "#000000",
           }}
         >
           {resumeInfo?.userImage || resumeInfo?.img ? (
@@ -118,8 +118,7 @@ const Template3 = ({ resumeInfo }) => {
                             skill?.rating * 20 || 0
                           }%`,
                           backgroundColor:
-                            resumeInfo?.themeColor ||
-                            "#ff6666",
+                            resumeInfo?.themeColor || "#000000",
                         }}
                       />
                     </div>
@@ -146,7 +145,7 @@ const Template3 = ({ resumeInfo }) => {
               EXPERIENCE
             </h2>
 
-            {resumeInfo?.experience?.map(
+            {resumeInfo?.personal_Experience?.map(
               (exp, index) => (
                 <div
                   key={exp?.id || index}
@@ -205,7 +204,7 @@ const Template3 = ({ resumeInfo }) => {
               EDUCATION
             </h2>
 
-            {resumeInfo?.education?.map(
+            {resumeInfo?.Education?.map(
               (edu, index) => (
                 <div
                   key={edu?.id || index}

@@ -67,7 +67,7 @@ No explanation.
 `;
 
         const experienceTitle =
-            resumeInfo?.experience?.[index]?.title;
+            resumeInfo?.personal_Experience?.[index]?.title;
 
         if (!experienceTitle) {
             toast.error("Please Add Position Title");

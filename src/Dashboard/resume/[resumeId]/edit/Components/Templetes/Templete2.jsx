@@ -109,7 +109,7 @@ const Template2 = ({ resumeInfo }) => {
           EDUCATION
         </h2>
 
-        {resumeInfo?.education?.map((edu, index) => (
+        {resumeInfo?.Education?.map((edu, index) => (
           <div
             key={edu?.id || index}
             className="mb-5"
@@ -162,7 +162,7 @@ const Template2 = ({ resumeInfo }) => {
                   style={{
                     width: `${skill?.rating * 20 || 0}%`,
                     backgroundColor:
-                      resumeInfo?.themeColor || "#ff6666",
+                      resumeInfo?.themeColor ||  "#000000",
                   }}
                 />
               </div>

@@ -19,6 +19,7 @@ const ResumePreview = () => {
     classic: Templete1,
     modern: Templete2,
     creative: Templete3,
+    
   }
 
   const SelectedTemplate = templates[templateId] || Deafult
