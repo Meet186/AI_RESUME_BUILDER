@@ -12,7 +12,7 @@ const Education = ({ enableNext }) => {
   const [loading, setLoading] = useState(false);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const { resumeId } = useParams();
-
+   const params = useParams();
   const [educationalList, setEducationalList] = useState([
     {
       universityName: "",
@@ -29,7 +29,7 @@ const Education = ({ enableNext }) => {
     if (resumeInfo?.Education?.length) {
       setEducationalList(resumeInfo.Education);
     }
-  }, [resumeInfo]);
+  }, []);
 
   // Keep context updated
   useEffect(() => {
@@ -46,9 +46,9 @@ const Education = ({ enableNext }) => {
       prev.map((item, i) =>
         i === index
           ? {
-              ...item,
-              [name]: value,
-            }
+            ...item,
+            [name]: value,
+          }
           : item
       )
     );
@@ -77,14 +77,30 @@ const Education = ({ enableNext }) => {
   const onSave = async () => {
     try {
       setLoading(true);
-      enableNext(false);
 
-      await GlobalApi.updateResumeDetails0(resumeId, {
-        Education: educationalList.map(({ id, ...rest }) => rest),
-      });
+      const data = {
+        data: {
+          Education: educationalList.map(({ id, ...rest }) => rest),
+        },
+      };
 
-      toast.success("Education updated successfully!");
+      console.log(
+        "FINAL PAYLOAD =>",
+        JSON.stringify(data, null, 2)
+      );
+
+      const res = await GlobalApi.updateResumeDetails0(
+        params.resumeId,
+        data
+      );
+
+      console.log(
+        "SAVE RESPONSE =>",
+        res.data
+      );
+
       enableNext(true);
+      toast.success("Education Updated Successfully");
     } catch (error) {
       console.error(error);
       toast.error("Failed to update education");

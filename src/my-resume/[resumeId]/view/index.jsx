@@ -12,6 +12,7 @@ import {
   Share2,
   Copy,
   CheckCircle2,
+  LoaderCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -328,6 +329,7 @@ const ViewResume = () => {
                 <ResumePreview />
               ) : (
                 <div className="p-20 text-center">
+                  <LoaderCircle className="w-10 h-10 mx-auto animate-spin text-gray-500" />
                   Loading Resume...
                 </div>
               )}

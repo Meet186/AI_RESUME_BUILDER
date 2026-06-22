@@ -1,6 +1,8 @@
 import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
+  console.log(resumeInfo , " skills");
+  
   return (
     <div className="bg-[#f5f5f5] p-10 min-h-[1120px] shadow-lg">
       {/* Header */}

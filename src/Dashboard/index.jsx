@@ -4,6 +4,7 @@ import { useUser } from '@clerk/react'
 import GlobalApi from '../../service/GlobalApi';
 import ResumeCardItem from './Components/ResumeCardItem';
 import Loader from '../components/ui/Loader';
+import { LoaderCircle } from 'lucide-react';
 
 const Dashboard = () => {
 
@@ -41,7 +42,13 @@ const Dashboard = () => {
         <AddResume />
         {isLoading ? (
           <div className="mt-10 min-h-60 flex items-center justify-center">
-            <Loader message="Fetching resumes..." />
+             <LoaderCircle className="w-10 h-10 mx-auto animate-spin text-gray-500" />
+          </div>
+        ) : resumeList.length === 0 ? (   
+      <div className="mt-10 min-h-60 flex items-center justify-center">
+        <p className="text-gray-500 text-lg">
+          No resumes found. Click on "Add Resume" to create your first resume.  
+        </p>
           </div>
         ) : (
           resumeList.length > 0 && resumeList.map((resume, index) => {
