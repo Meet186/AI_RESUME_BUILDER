@@ -44,23 +44,19 @@ const FormSection = () => {
   const selectedTemplate =
     resumeInfo?.template || 'default';
 
-  const handleTemplateChange = async (
-    templateId
-  ) => {
-    try {
-      await GlobalApi.updateResumeDetails0(
-        resumeId,
-        {
-          template: templateId,
-        }
-      );
+  const handleTemplateChange = async (templateId) => {
+    // Update UI immediately
+    setResumeInfo((prev) => ({
+      ...prev,
+      template: templateId,
+    }));
 
-      setResumeInfo((prev) => ({
-        ...prev,
+    try {
+      await GlobalApi.updateResumeDetails0(resumeId, {
         template: templateId,
-      }));
-    } catch (error) {
-      console.log(error);
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
   return (
@@ -114,10 +110,8 @@ const FormSection = () => {
                       ? 'bg-slate-100 font-semibold'
                       : 'hover:bg-slate-50'
                       }`}
-                    onClick={async () => {
-                      await handleTemplateChange(
-                        template.id
-                      );
+                    onClick={() => {
+                      handleTemplateChange(template.id);
                       setShowTemplateMenu(false);
                     }}
                   >

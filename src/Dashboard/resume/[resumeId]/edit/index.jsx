@@ -10,6 +10,7 @@ const EditResume = () => {
     const params = useParams();
     const [resumeInfo,setResumeInfo] = useState();
     useEffect(()=>{
+       
         GetResumeInfo()
         
     },[])
