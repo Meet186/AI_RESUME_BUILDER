@@ -67,7 +67,7 @@ const Education = ({ enableNext }) => {
 
       console.log("Sending:", data);
 
-      const res = await GlobalApi.updateResumeDetails(
+      const res = await GlobalApi.updateResumeDetails0(
         params.resumeId,
         data
       );

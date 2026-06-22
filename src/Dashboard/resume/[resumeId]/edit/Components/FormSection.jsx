@@ -14,7 +14,7 @@ import {
   ArrowLeft,
   House,
 } from 'lucide-react';
-
+import GlobalApi from '../../../../../../service/GlobalApi';
 import { ResumeInfoContext } from '@/Context/ResumeInfoContext';
 
 const FormSection = () => {
@@ -39,18 +39,30 @@ const FormSection = () => {
   const [enableNext, setEnableNext] =
     useState(false);
 
-    const {resumeId} = useParams()
+  const { resumeId } = useParams()
 
   const selectedTemplate =
     resumeInfo?.template || 'default';
 
-  const handleTemplateChange = (templateId) => {
-    setResumeInfo({
-      ...resumeInfo,
-      template: templateId,
-    });
-  };
+  const handleTemplateChange = async (
+    templateId
+  ) => {
+    try {
+      await GlobalApi.updateResumeDetails0(
+        resumeId,
+        {
+          template: templateId,
+        }
+      );
 
+      setResumeInfo((prev) => ({
+        ...prev,
+        template: templateId,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       {/* Top Navigation */}
@@ -98,12 +110,12 @@ const FormSection = () => {
                     key={template.id}
                     type="button"
                     className={`w-full px-4 py-2 text-left text-sm ${selectedTemplate ===
-                        template.id
-                        ? 'bg-slate-100 font-semibold'
-                        : 'hover:bg-slate-50'
+                      template.id
+                      ? 'bg-slate-100 font-semibold'
+                      : 'hover:bg-slate-50'
                       }`}
-                    onClick={() => {
-                      handleTemplateChange(
+                    onClick={async () => {
+                      await handleTemplateChange(
                         template.id
                       );
                       setShowTemplateMenu(false);
@@ -182,7 +194,7 @@ const FormSection = () => {
       )}
 
       {activeFormIndex === 6 && (
-        <Navigate to={'/my-resume/'+resumeId+"/view"}/>
+        <Navigate to={'/my-resume/' + resumeId + "/view"} />
       )}
 
     </div>
