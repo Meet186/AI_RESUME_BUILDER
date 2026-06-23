@@ -44,6 +44,10 @@ const updateResumeDetails0 = (id, data) => {
   return axiosClient.put(`/ai-resumes/${id}`, { data });
 };
 const GetResumeById=(id)=>axiosClient.get('/ai-resumes/'+id+"?populate=*")
+
+const DeleteResumeById = (id) => {
+  return axiosClient.delete('/ai-resumes/' + id);
+};
 export default {
   CreateNewResume,
   getUserResume,
@@ -51,4 +55,5 @@ export default {
   updateResumeDetails,
   updateResumeDetails0,
   GetResumeById,
+  DeleteResumeById
 };

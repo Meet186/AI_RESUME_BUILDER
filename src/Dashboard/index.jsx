@@ -26,6 +26,7 @@ const Dashboard = () => {
         user?.primaryEmailAddress?.emailAddress
       )
       SetResumeList(res?.data?.data || []);
+     
     } catch (err) {
       console.error('Failed to fetch resumes', err);
       SetResumeList([]);
@@ -52,7 +53,7 @@ const Dashboard = () => {
           </div>
         ) : (
           resumeList.length > 0 && resumeList.map((resume, index) => {
-            return <ResumeCardItem resume={resume} key={index} />
+            return <ResumeCardItem resume={resume} key={index} refreshData={GetResumeList} />
           })
 
         )}

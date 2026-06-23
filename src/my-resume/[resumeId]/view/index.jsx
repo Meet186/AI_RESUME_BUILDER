@@ -20,6 +20,8 @@ const ViewResume = () => {
   const [resumeInfo, setResumeInfo] = useState(null);
   const { resumeId } = useParams();
 
+    console.log(resumeInfo);
+    
   useEffect(() => {
     GetResumeInfo();
   }, []);
