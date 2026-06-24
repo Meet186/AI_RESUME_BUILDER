@@ -5,34 +5,57 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =========================
+   PRINT SYSTEM (ATS CLEAN)
+   ========================= */
+
 @media print {
-  #no-print {
-    display: none !important;
+
+  /* Hide everything except resume */
+  body * {
+    visibility: hidden !important;
   }
 
-  body {
-    background: white !important;
+  #print-area,
+  #print-area * {
+    visibility: visible !important;
   }
 
+  /* Resume container */
   #print-area {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
     box-shadow: none !important;
-    border-radius: 0 !important;
   }
-}
 
-@media print {
-  #no-print {
+  /* IMPORTANT: allow colors to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide UI elements */
+  .no-print {
     display: none !important;
   }
 
-  body {
-    background: white !important;
+  button,
+  header,
+  nav {
+    display: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
   }
 }
-
 .rsw-ce ul {
   list-style: disc;
   padding-left: 2em;
