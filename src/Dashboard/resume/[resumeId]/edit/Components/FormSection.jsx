@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import GlobalApi from '../../../../../../service/GlobalApi';
 import { ResumeInfoContext } from '@/Context/ResumeInfoContext';
+import ThemeColor from './ThemeColor';
 
 const FormSection = () => {
   const navigate = useNavigate();
@@ -75,14 +76,7 @@ const FormSection = () => {
           </Button>
 
           {/* Theme Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex gap-2"
-          >
-            <LayoutGrid className="h-4 w-4" />
-            Theme
-          </Button>
+          <ThemeColor/>
 
           {/* Template Dropdown */}
           <div className="relative">

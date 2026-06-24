@@ -37,6 +37,7 @@ const Skills = ({ enableNext }) => {
     }
     const onSave = async () => {
         try {
+            enableNext(false);
             setLoading(true);
 
             const data = {

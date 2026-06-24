@@ -20,11 +20,13 @@ const ViewResume = () => {
   const [resumeInfo, setResumeInfo] = useState(null);
   const { resumeId } = useParams();
 
-    console.log(resumeInfo);
+   
     
   useEffect(() => {
     GetResumeInfo();
   }, []);
+
+   console.log(resumeInfo , "download");
 
   const GetResumeInfo = async () => {
     try {

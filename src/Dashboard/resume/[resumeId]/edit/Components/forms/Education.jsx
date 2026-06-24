@@ -1,250 +1,197 @@
-import React, { useContext, useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ResumeInfoContext } from "../../../../../../Context/ResumeInfoContext";
-import { Input } from "../../../../../../components/ui/input";
-import { Textarea } from "../../../../../../components/ui/textarea";
-import { Button } from "../../../../../../components/ui/button";
+import { LoaderCircle } from "lucide-react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import GlobalApi from "../../../../../../../service/GlobalApi";
 import { toast } from "sonner";
-import { useParams } from "react-router";
-import { LoaderCircle } from "lucide-react";
 
-const defaultEducation = {
-  universityName: "",
-  degree: "",
-  major: "",
-  startDate: "",
-  endDate: "",
-  description: "",
-};
-
-const Education = ({ enableNext }) => {
-  const { resumeInfo, setResumeInfo } =
-    useContext(ResumeInfoContext);
-
-  const { resumeId } = useParams();
-
+function Education({ enableNext }) {
   const [loading, setLoading] = useState(false);
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const params = useParams();
 
   const [educationalList, setEducationalList] = useState([
-    defaultEducation,
+    {
+      universityName: "",
+      degree: "",
+      major: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+    },
   ]);
 
-  // Load saved data
+  // Load data from context
   useEffect(() => {
-    if (
-      resumeInfo?.Education &&
-      Array.isArray(resumeInfo.Education)
-    ) {
-      setEducationalList(
-        resumeInfo.Education.length
-          ? resumeInfo.Education
-          : [defaultEducation]
-      );
+    if (resumeInfo?.Education?.length) {
+      setEducationalList(resumeInfo.Education);
     }
-  }, [resumeInfo]);
+  }, [resumeInfo?.Education]);
 
-  // Keep context updated
-  useEffect(() => {
+  const updateEducationData = (newList) => {
+    setEducationalList(newList);
+
     setResumeInfo((prev) => ({
       ...prev,
-      Education: educationalList,
+      Education: newList,
     }));
-  }, [educationalList]);
+  };
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
+  const handleChange = (event, index) => {
+    const { name, value } = event.target;
 
-    setEducationalList((prev) =>
-      prev.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              [name]: value,
-            }
-          : item
-      )
-    );
+    const newEntries = [...educationalList];
+    newEntries[index] = {
+      ...newEntries[index],
+      [name]: value,
+    };
+
+    updateEducationData(newEntries);
   };
 
   const AddNewEducation = () => {
-    setEducationalList((prev) => [
-      ...prev,
-      { ...defaultEducation },
-    ]);
+    const newList = [
+      ...educationalList,
+      {
+        universityName: "",
+        degree: "",
+        major: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      },
+    ];
+
+    updateEducationData(newList);
   };
 
   const RemoveEducation = () => {
-    if (educationalList.length > 1) {
-      setEducationalList((prev) =>
-        prev.slice(0, prev.length - 1)
-      );
-    }
+    if (educationalList.length <= 1) return;
+
+    const newList = educationalList.slice(0, -1);
+    updateEducationData(newList);
   };
 
   const onSave = async () => {
+    setLoading(true);
+
+    const data = {
+      data: {
+        Education: educationalList.map(({ id, ...rest }) => rest),
+      },
+    };
+
     try {
-      setLoading(true);
-
-      const payload = {
-        data: {
-          Education: educationalList.map(
-            ({
-              id,
-              documentId,
-              createdAt,
-              updatedAt,
-              publishedAt,
-              ...rest
-            }) => rest
-          ),
-        },
-      };
-
-      console.log(
-        "Education Payload:",
-        JSON.stringify(payload, null, 2)
+      enableNext(false);
+      const resp = await GlobalApi.updateResumeDetails(
+        params.resumeId,
+        data
       );
 
-      const response =
-        await GlobalApi.updateResumeDetails(
-          resumeId,
-          payload
-        );
+      console.log("Save Response:", resp);
 
-      console.log(
-        "Education Saved:",
-        response?.data
-      );
-
-      setResumeInfo((prev) => ({
-        ...prev,
-        Education: educationalList,
-      }));
-
-      enableNext?.(true);
-
-      toast.success(
-        "Education Updated Successfully"
-      );
+      toast.success("Education details updated!");
+      enableNext(true);
     } catch (error) {
       console.error(error);
-      toast.error(
-        "Failed to update education"
-      );
+      toast.error("Server Error, Please try again!");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-4 border-t-primary mt-10">
-      <h2 className="font-bold text-lg">
-        Education
-      </h2>
+    <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
+      <h2 className="font-bold text-lg">Education</h2>
+      <p>Add Your Educational Details</p>
 
-      <p className="text-sm text-gray-500">
-        Add your educational details
-      </p>
+      <div>
+        {educationalList.map((item, index) => (
+          <div key={item?.id || index}>
+            <div className="grid grid-cols-2 gap-3 border p-3 my-5 rounded-lg">
+              <div className="col-span-2">
+                <label>University Name</label>
+                <Input
+                  name="universityName"
+                  value={item?.universityName || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
 
-      {educationalList.map((item, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-2 gap-3 border p-4 rounded-lg my-5"
-        >
-          <div className="col-span-2">
-            <label>University Name</label>
-            <Input
-              name="universityName"
-              value={item?.universityName || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
+              <div>
+                <label>Degree</label>
+                <Input
+                  name="degree"
+                  value={item?.degree || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
+
+              <div>
+                <label>Major</label>
+                <Input
+                  name="major"
+                  value={item?.major || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
+
+              <div>
+                <label>Start Date</label>
+                <Input
+                  type="date"
+                  name="startDate"
+                  value={item?.startDate || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
+
+              <div>
+                <label>End Date</label>
+                <Input
+                  type="date"
+                  name="endDate"
+                  value={item?.endDate || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
+
+              <div className="col-span-2">
+                <label>Description</label>
+                <Textarea
+                  name="description"
+                  value={item?.description || ""}
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </div>
+            </div>
           </div>
-
-          <div>
-            <label>Degree</label>
-            <Input
-              name="degree"
-              value={item?.degree || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
-          </div>
-
-          <div>
-            <label>Major</label>
-            <Input
-              name="major"
-              value={item?.major || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
-          </div>
-
-          <div>
-            <label>Start Date</label>
-            <Input
-              type="date"
-              name="startDate"
-              value={item?.startDate || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
-          </div>
-
-          <div>
-            <label>End Date</label>
-            <Input
-              type="date"
-              name="endDate"
-              value={item?.endDate || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
-          </div>
-
-          <div className="col-span-2">
-            <label>Description</label>
-            <Textarea
-              name="description"
-              value={item?.description || ""}
-              onChange={(e) =>
-                handleChange(e, index)
-              }
-            />
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="flex justify-between">
         <div className="flex gap-2">
           <Button
             variant="outline"
             onClick={AddNewEducation}
+            className="text-primary"
           >
-            + Add More
+            + Add More Education
           </Button>
 
           <Button
             variant="outline"
-            disabled={
-              educationalList.length === 1
-            }
             onClick={RemoveEducation}
+            className="text-primary"
           >
             - Remove
           </Button>
         </div>
 
-        <Button
-          onClick={onSave}
-          disabled={loading}
-        >
+        <Button disabled={loading} onClick={onSave}>
           {loading ? (
             <LoaderCircle className="animate-spin" />
           ) : (
@@ -254,6 +201,6 @@ const Education = ({ enableNext }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Education;

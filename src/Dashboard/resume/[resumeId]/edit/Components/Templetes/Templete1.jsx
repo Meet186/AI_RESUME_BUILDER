@@ -1,13 +1,18 @@
 import React from "react";
 
 const Template1 = ({ resumeInfo }) => {
-  console.log(resumeInfo , " skills");
-  
+  console.log(resumeInfo, " skills");
+
   return (
     <div className="bg-[#f5f5f5] p-10 min-h-[1120px] shadow-lg">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-5xl font-bold uppercase tracking-wider leading-none">
+      <div className="mb-8" >
+        <h1 className="text-5xl font-bold uppercase tracking-wider leading-none"
+          style={{
+            color:
+              resumeInfo?.themeColor || "#000",
+          }}
+        >    
           {resumeInfo?.firstName}
           <br />
           {resumeInfo?.lastName}

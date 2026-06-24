@@ -5,6 +5,7 @@ import ResumePreview from './Components/ResumePreview';
 import { ResumeInfoContext } from '../../../../Context/ResumeInfoContext';
 import dummy from '../../../../data/dummy';
 import GlobalApi from '../../../../../service/GlobalApi';
+import Education from './Components/forms/Education';
 
 const EditResume = () => {
     const params = useParams();
@@ -29,6 +30,7 @@ const EditResume = () => {
       <FormSection/>
       {/* preview section */}
       <ResumePreview/>
+     
     </div>
     </ResumeInfoContext.Provider>
     

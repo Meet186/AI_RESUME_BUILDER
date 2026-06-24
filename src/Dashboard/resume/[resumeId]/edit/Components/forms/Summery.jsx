@@ -36,6 +36,7 @@ const Summery = ({ enableNext }) => {
     const onSave = async (e) => {
         e.preventDefault()
         setLoading(true)
+        enableNext(false);
 
         const payload = {
             summery,

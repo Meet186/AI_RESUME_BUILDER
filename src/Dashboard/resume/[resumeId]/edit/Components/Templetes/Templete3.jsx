@@ -33,16 +33,17 @@ const Template3 = ({ resumeInfo }) => {
 
         {/* Info */}
         <div>
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold"
+            style={{
+              color: resumeInfo?.themeColor,
+            }}>
             {resumeInfo?.firstName || "James"}{" "}
             {resumeInfo?.lastName || "Carter"}
           </h1>
 
           <p
             className="font-medium mt-1"
-            style={{
-              color: resumeInfo?.themeColor,
-            }}
+
           >
             {resumeInfo?.jobTitle ||
               "Full Stack Developer"}
@@ -114,9 +115,8 @@ const Template3 = ({ resumeInfo }) => {
                       <div
                         className="h-2 rounded-full"
                         style={{
-                          width: `${
-                            skill?.rating * 20 || 0
-                          }%`,
+                          width: `${skill?.rating * 20 || 0
+                            }%`,
                           backgroundColor:
                             resumeInfo?.themeColor || "#000000",
                         }}
