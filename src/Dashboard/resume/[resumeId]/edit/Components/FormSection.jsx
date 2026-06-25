@@ -59,12 +59,12 @@ const FormSection = () => {
           </Button>
 
           {/* Theme */}
-          {activeFormIndex === 5 && (
+          
             <ThemeColor />
-          )}
+          
 
           {/* Template Dropdown (FIXED) */}
-          {activeFormIndex === 5 ? (
+          
             <div className="relative">
               <Button
                 variant="outline"
@@ -97,7 +97,7 @@ const FormSection = () => {
                 </div>
               )}
             </div>
-          ) : null}
+          
         </div>
 
         {/* Navigation Buttons */}
