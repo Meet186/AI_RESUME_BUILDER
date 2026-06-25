@@ -1,110 +1,172 @@
-import { LoaderCircle } from 'lucide-react'
-import React, { useContext, useState, useEffect } from 'react'
-import { Input } from '../../../../../../components/ui/input'
-import { Rating } from '@smastrom/react-rating'
-import '@smastrom/react-rating/style.css'
-import { ResumeInfoContext } from '../../../../../../Context/ResumeInfoContext'
-import { Button } from '../../../../../../components/ui/button'
-import GlobalApi from '../../../../../../../service/GlobalApi'
-import { useParams } from 'react-router'
-import { toast } from 'sonner'
+import { LoaderCircle } from "lucide-react";
+import React, { useContext, useEffect, useState } from "react";
+import { Input } from "../../../../../../components/ui/input";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
+import { ResumeInfoContext } from "../../../../../../Context/ResumeInfoContext";
+import { Button } from "../../../../../../components/ui/button";
+import GlobalApi from "../../../../../../../service/GlobalApi";
+import { useParams } from "react-router";
+import { toast } from "sonner";
 
 const Skills = ({ enableNext }) => {
-    const [loading, setLoading] = useState(false);
-    const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-    const [skillsList, setSkillsList] = useState([{
-        name: '',
-        rating: 0
-    }])
-    const params = useParams();
-    useEffect(() => {
-        resumeInfo && setSkillsList(resumeInfo?.skills)
-    }, [])
-    const AddNewSkills = () => {
-        setSkillsList([...skillsList, {
-            name: '',
-            rating: 0
-        }])
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const { resumeId } = useParams();
+
+  const [loading, setLoading] = useState(false);
+
+  const [skillsList, setSkillsList] = useState([
+    {
+      name: "",
+      rating: 0,
+    },
+  ]);
+
+  // Load existing skills
+  useEffect(() => {
+    if (resumeInfo?.skills && resumeInfo.skills.length > 0) {
+      setSkillsList(resumeInfo.skills);
     }
-    const RemoveSkills = () => {
-        setSkillsList(skillsList => skillsList.slice(0, -1))
+  }, [resumeInfo]);
+
+  // Keep Resume Context updated
+  useEffect(() => {
+    setResumeInfo((prev) => ({
+      ...prev,
+      skills: skillsList,
+    }));
+  }, [skillsList, setResumeInfo]);
+
+  // Add Skill
+  const AddNewSkills = () => {
+    setSkillsList((prev) => [
+      ...prev,
+      {
+        name: "",
+        rating: 0,
+      },
+    ]);
+  };
+
+  // Remove Skill
+  const RemoveSkills = () => {
+    if (skillsList.length === 1) {
+      toast.error("At least one skill is required.");
+      return;
     }
-    const handleChange = (index, name, value) => {
-        const newEntries = skillsList.slice();
 
-        newEntries[index][name] = value;
-        setSkillsList(newEntries);
+    setSkillsList((prev) => prev.slice(0, -1));
+  };
+
+  // Handle Input Change
+  const handleChange = (index, field, value) => {
+    setSkillsList((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              [field]: value,
+            }
+          : item
+      )
+    );
+  };
+
+  // Save Skills
+  const onSave = async () => {
+    try {
+      setLoading(true);
+      enableNext(false);
+
+      const payload = {
+        data: {
+          skills: skillsList.map(({ id, ...rest }) => rest),
+        },
+      };
+
+      console.time("Update Skills");
+
+      await GlobalApi.updateResumeDetails(resumeId, payload);
+
+      console.timeEnd("Update Skills");
+
+      toast.success("Skills updated successfully!");
+
+      enableNext(true);
+    } catch (error) {
+      console.error("Update Error:", error);
+      toast.error("Failed to update skills.");
+    } finally {
+      setLoading(false);
     }
-    const onSave = async () => {
-        try {
-            enableNext(false);
-            setLoading(true);
+  };
 
-            const data = {
-                data: {
-                    skills: skillsList.map(({ id, ...rest }) => rest),
-                },
-            };
+  return (
+    <div className="p-5 mt-10 shadow-lg rounded-lg border-t-4 border-t-primary">
+      <h2 className="text-lg font-bold">Skills</h2>
+      <p className="text-sm text-gray-500 mb-5">
+        Add your top professional skills.
+      </p>
 
-            console.log("FINAL PAYLOAD");
-            console.log(JSON.stringify(data, null, 2));
+      <div className="space-y-4">
+        {skillsList.map((item, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-between gap-6 border rounded-lg p-4"
+          >
+            <div className="flex-1">
+              <label className="text-xs font-medium">Skill Name</label>
 
-            console.log("Sending:", data);
-
-            const res = await GlobalApi.updateResumeDetails(
-                params.resumeId,
-                data
-            );
-
-            console.log(res.data);
-            enableNext(true)
-            toast.success("Details updated!");
-
-        } catch (error) {
-            console.error(error);
-            toast.error("Failed to update");
-        } finally {
-            setLoading(false);
-        }
-    }
-    useEffect(() => {
-        setResumeInfo({
-            ...resumeInfo,
-            skills: skillsList
-        })
-    }, [skillsList])
-    return (
-        <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
-            <h2 className='font-bold text-lg'>Skills</h2>
-            <p>Add Your top professional key skills</p>
+              <Input
+                value={item.name}
+                placeholder="React, Java, Node.js..."
+                onChange={(e) =>
+                  handleChange(index, "name", e.target.value)
+                }
+              />
+            </div>
 
             <div>
-                {skillsList.map((item, index) => (
-                    <div key={index} className='flex justify-between mb-2 border rounded-lg p-3 '>
-                        <div>
-                            <label className='text-xs'>Name</label>
-                            <Input className="w-full"
-                                defaultValue={item.name}
-                                onChange={(e) => handleChange(index, 'name', e.target.value)} />
-                        </div>
-                        <Rating style={{ maxWidth: 120 }} value={item.rating}
-                            onChange={(v) => handleChange(index, 'rating', v)} />
+              <label className="text-xs font-medium block mb-2">
+                Rating
+              </label>
 
-                    </div>
-                ))}
+              <Rating
+                style={{ maxWidth: 120 }}
+                value={item.rating}
+                onChange={(value) =>
+                  handleChange(index, "rating", value)
+                }
+              />
             </div>
-            <div className='flex justify-between'>
-                <div className='flex gap-2'>
-                    <Button variant="outline" onClick={AddNewSkills} className="text-primary"> + Add More Skill</Button>
-                    <Button variant="outline" onClick={RemoveSkills} className="text-primary"> - Remove</Button>
+          </div>
+        ))}
+      </div>
 
-                </div>
-                <Button disabled={loading} onClick={() => onSave()}>
-                    {loading ? <LoaderCircle className='animate-spin' /> : 'Save'}
-                </Button>
-            </div>
+      <div className="flex justify-between mt-6">
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={AddNewSkills}>
+            + Add Skill
+          </Button>
+
+          <Button variant="outline" onClick={RemoveSkills}>
+            - Remove
+          </Button>
         </div>
-    )
-}
 
-export default Skills
+        <Button disabled={loading} onClick={onSave}>
+          {loading ? (
+            <>
+              <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            "Save"
+          )}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Skills;

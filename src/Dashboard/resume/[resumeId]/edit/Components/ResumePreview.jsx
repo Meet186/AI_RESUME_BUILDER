@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import { ResumeInfoContext } from '../../../../../Context/ResumeInfoContext';
+import React, { useContext } from "react";
+import { ResumeInfoContext } from "../../../../../Context/ResumeInfoContext";
 
-import Templete1 from './Templetes/templete1';
-import Templete2 from './Templetes/Templete2';
-import Templete3 from './Templetes/Templete3';
-import Deafult from './Templetes/Deafult';
+import Templete1 from "./Templetes/templete1";
+import Templete2 from "./Templetes/Templete2";
+import Templete3 from "./Templetes/Templete3";
+import Deafult from "./Templetes/Deafult";
 
 const ResumePreview = () => {
   const { resumeInfo } = useContext(ResumeInfoContext);
 
-  console.log("Resume Preview Template:", resumeInfo?.template);
+  if (!resumeInfo) return null;
 
   const templates = {
     default: Deafult,
@@ -21,7 +21,14 @@ const ResumePreview = () => {
   const SelectedTemplate =
     templates[resumeInfo?.template] || Deafult;
 
-  return <SelectedTemplate resumeInfo={resumeInfo} />;
-};
+  return (
+    <div
+      id="resume-preview"
+      className="bg-white w-full h-full"
+    >
+      <SelectedTemplate resumeInfo={resumeInfo} />
+    </div>
+  );
+};  
 
 export default ResumePreview;

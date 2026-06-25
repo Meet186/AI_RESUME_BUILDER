@@ -1,59 +1,60 @@
-import React from 'react'
+import React from "react";
 
 function EducationalPreview({ resumeInfo }) {
+  if (!resumeInfo?.Education || resumeInfo.Education.length === 0) {
+    return null;
+  }
 
-    console.log("FULL resumeInfo =>", resumeInfo);
+  const themeColor = resumeInfo?.themeColor || "#000000";
 
-    console.log("Education =>", resumeInfo?.Education);
+  return (
+    <section className="my-6 break-inside-auto">
+      <h2
+        className="text-center font-bold text-sm uppercase tracking-wider mb-2"
+        style={{ color: themeColor }}
+      >
+        Education
+      </h2>
 
-    console.log(
-        "Education JSON =>",
-        JSON.stringify(resumeInfo?.Education, null, 2)
-    );
+      <hr
+        className="mb-4"
+        style={{
+          borderColor: themeColor,
+        }}
+      />
 
-    return (
-        <div className='my-6'>
-            <h2
-                className='text-center font-bold text-sm mb-2'
-                style={{
-                    color: resumeInfo?.themeColor
-                }}
-            >
-                Education
-            </h2>
+      {resumeInfo.Education.map((education, index) => (
+        <div
+          key={education?.id || index}
+          className="mb-5 break-inside-avoid"
+        >
+          <h3
+            className="text-sm font-bold"
+            style={{ color: themeColor }}
+          >
+            {education?.universityName}
+          </h3>
 
-            <hr
-                style={{
-                    borderColor: resumeInfo?.themeColor
-                }}
-            />
+          <div className="flex justify-between items-center text-xs mt-1">
+            <span>
+              {education?.degree}
+              {education?.major ? ` in ${education.major}` : ""}
+            </span>
 
-            {resumeInfo?.Education?.map((education, index) => (
-                <div key={index} className='my-5'>
-                    <h2
-                        className='text-sm font-bold'
-                        style={{
-                            color: resumeInfo?.themeColor
-                        }}
-                    >
-                        {education?.universityName}
-                    </h2>
+            <span className="text-gray-600 whitespace-nowrap">
+              {education?.startDate} - {education?.endDate}
+            </span>
+          </div>
 
-                    <h2 className='text-xs flex justify-between'>
-                        {education?.degree} in {education?.major}
-
-                        <span>
-                            {education?.startDate} - {education?.endDate}
-                        </span>
-                    </h2>
-
-                    <p className='text-xs my-2'>
-                        {education?.description}
-                    </p>
-                </div>
-            ))}
+          {education?.description && (
+            <p className="text-xs text-gray-700 mt-2 leading-5 whitespace-pre-line">
+              {education.description}
+            </p>
+          )}
         </div>
-    )
+      ))}
+    </section>
+  );
 }
 
-export default EducationalPreview
+export default EducationalPreview;
