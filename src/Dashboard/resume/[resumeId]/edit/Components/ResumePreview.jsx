@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { ResumeInfoContext } from "../../../../../Context/ResumeInfoContext";
-
-import Templete1 from "./Templetes/templete1";
+import Templete1 from "./Templetes/Templete1";
 import Templete2 from "./Templetes/Templete2";
 import Templete3 from "./Templetes/Templete3";
 import Deafult from "./Templetes/Deafult";
