@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { ResumeInfoContext } from "../../../../../Context/ResumeInfoContext";
 
-import Templete1 from "./temp/templete1";
-import Templete2 from "./temp/Templete2";
-import Templete3 from "./temp/Templete3";
-import Deafult from "./temp/Deafult";
+import Templete1 from "./Templetes/templete1";
+import Templete2 from "./Templetes/Templete2";
+import Templete3 from "./Templetes/Templete3";
+import Deafult from "./Templetes/Deafult";
 
 const ResumePreview = () => {
   const { resumeInfo } = useContext(ResumeInfoContext);
