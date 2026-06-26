@@ -1,4 +1,4 @@
-import { SignIn } from '@clerk/react'
+import { SignIn  } from '@clerk/react'
 import React from 'react'
 
 const SignInPage = () => {
