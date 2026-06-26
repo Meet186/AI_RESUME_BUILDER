@@ -13,8 +13,9 @@ import { Toaster } from '@/components/ui/sonner';
 function App() {
   const [count, setCount] = useState(0)
   const { user, isLoaded, isSignedIn } = useUser();
-  if (!isSignedIn && isLoaded) {
-    return <Navigate to={'/auth/sign-in'} />
+
+  if (!isSignedIn) {
+    return <Navigate to="/auth/sign-in" replace />;
   }
   return (
     <>

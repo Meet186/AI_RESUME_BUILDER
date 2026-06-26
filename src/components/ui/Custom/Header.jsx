@@ -17,7 +17,7 @@ const Header = () => {
                     <UserButton />
                 </div> :
 
-                <Link to={'/auth/sign-in'}>
+                <Link to={'/auth/sign-up'}>
                     <Button>Get Started</Button>
                 </Link>
             }
