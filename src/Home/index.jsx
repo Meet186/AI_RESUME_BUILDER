@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 import { Button } from "@/components/ui/button"
 
 const Home = () => {
-   const { user, isSignedIn } = useUser();
+  const { user, isSignedIn } = useUser();
   return (
     <div>
       <Header />
@@ -18,13 +18,14 @@ const Home = () => {
           <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Effortlessly Craft a Standout Resume with Our AI-Powered Builder</p>
           <div className="flex justify-center flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
             {isSignedIn ?
-              <div className='inline-flex justify-center items-center my-2 py-3 px-5 text-base font-medium text-center  rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800'>
-                <Link to={'/dashboard'}>
-                  <Button data-variant="outline">Dashboard</Button>
-                </Link>
 
-        
-              </div> :
+              <Link to={'/dashboard'}>
+                <Button className="inline-flex items-center py-7 px-5 text-base font-medium text-center"
+                  data-variant="outline">Dashboard</Button>
+              </Link>
+
+
+              :
 
               <Link to={'/auth/sign-up'}>
                 <Button className="inline-flex items-center py-7 px-5 text-base font-medium text-center">
