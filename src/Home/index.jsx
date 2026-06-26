@@ -23,7 +23,7 @@ const Home = () => {
                   <Button data-variant="outline">Dashboard</Button>
                 </Link>
 
-                <UserButton />
+        
               </div> :
 
               <Link to={'/auth/sign-up'}>
