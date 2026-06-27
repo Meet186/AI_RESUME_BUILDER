@@ -28,6 +28,8 @@ function Education({ enableNext }) {
   useEffect(() => {
     if (resumeInfo?.Education?.length) {
       setEducationalList(resumeInfo.Education);
+    } else {
+      enableNext(false);
     }
   }, [resumeInfo?.Education]);
 

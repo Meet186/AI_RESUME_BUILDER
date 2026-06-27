@@ -23,6 +23,8 @@ const Summery = ({ enableNext }) => {
   useEffect(() => {
     if (resumeInfo?.summery) {
       setSummery(resumeInfo.summery);
+    } else {
+        enableNext(false);
     }
   }, [resumeInfo]);
 

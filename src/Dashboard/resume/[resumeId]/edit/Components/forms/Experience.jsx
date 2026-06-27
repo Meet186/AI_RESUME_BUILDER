@@ -38,6 +38,7 @@ const Experience = ({ enableNext }) => {
       setExperinceList(resumeInfo.personal_Experience);
     } else {
       setExperinceList([{ ...formField }]);
+      enableNext(false);
     }
   }, [resumeInfo]);
 

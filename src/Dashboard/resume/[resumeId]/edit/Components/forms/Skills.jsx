@@ -29,6 +29,8 @@ const Skills = ({ enableNext }) => {
       JSON.stringify(resumeInfo.skills) !== JSON.stringify(skillsList)
     ) {
       setSkillsList(resumeInfo.skills);
+    } else {
+      enableNext(false);
     }
   }, [resumeInfo]);
 
