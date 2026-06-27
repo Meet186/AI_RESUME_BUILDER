@@ -5,7 +5,7 @@ function EducationalPreview({ resumeInfo }) {
     return null;
   }
 
-  const themeColor = resumeInfo?.themeColor || "#000000";
+  const themeColor = resumeInfo?.themeColor || "#0F172A";
 
   return (
     <section className="my-6 break-inside-auto">

@@ -9,8 +9,8 @@ import { toast } from "sonner";
 const PersonalDetails = ({ enableNext }) => {
     const params = useParams();
 
+    
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
-
     const [formData, setFormData] = useState({ ...resumeInfo });
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(resumeInfo?.userImage || "");
