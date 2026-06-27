@@ -25,7 +25,8 @@ function App() {
     <>
       <Header />
       <Outlet />
-      <Toaster />
+      <Toaster richColors
+        position="top-right" />
     </>
   );
 }
