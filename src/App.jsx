@@ -8,7 +8,7 @@ import { Navigate, Outlet } from 'react-router'
 import { useUser } from '@clerk/react'
 import Header from './components/ui/Custom/Header'
 import { Toaster } from '@/components/ui/sonner';
-
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,9 +19,11 @@ function App() {
   }
   return (
     <>
-      <Header />
-      <Outlet />
-      <Toaster />
+      <BrowserRouter>
+        <Header />
+        <Outlet />
+        <Toaster />
+      </BrowserRouter>
     </>
   )
 }
