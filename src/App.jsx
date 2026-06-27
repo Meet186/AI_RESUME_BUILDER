@@ -1,32 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-
-import './App.css'
-import { Navigate, Outlet } from 'react-router'
-import { useUser } from '@clerk/react'
-import Header from './components/ui/Custom/Header'
-import { Toaster } from '@/components/ui/sonner';
-
+import { Outlet, Navigate } from "react-router-dom";
+import { useUser } from "@clerk/react";
+import Header from "./components/ui/Custom/Header";
+import { Toaster } from "@/components/ui/sonner";
+import { LoaderCircle } from "lucide-react";
 
 function App() {
-  const [count, setCount] = useState(0)
-  const { user, isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
+  // Wait for Clerk to initialize
+  if (!isLoaded) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <LoaderCircle className="w-10 h-10 animate-spin" />
+      </div>
+    );
+  }
+
+  // Redirect only after Clerk has loaded
   if (!isSignedIn) {
     return <Navigate to="/auth/sign-in" replace />;
   }
+
   return (
     <>
-
-        <Header />
-        <Outlet />
-        <Toaster />
-      
+      <Header />
+      <Outlet />
+      <Toaster />
     </>
-  )
+  );
 }
 
-
-export default App
+export default App;

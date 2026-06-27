@@ -24,28 +24,30 @@ const Skills = ({ enableNext }) => {
 
   // Load existing skills
   useEffect(() => {
-    if (resumeInfo?.skills && resumeInfo.skills.length > 0) {
+    if (
+      resumeInfo?.skills &&
+      JSON.stringify(resumeInfo.skills) !== JSON.stringify(skillsList)
+    ) {
       setSkillsList(resumeInfo.skills);
     }
   }, [resumeInfo]);
 
-  // Keep Resume Context updated
-  useEffect(() => {
-    setResumeInfo((prev) => ({
-      ...prev,
-      skills: skillsList,
-    }));
-  }, [skillsList, setResumeInfo]);
-
   // Add Skill
   const AddNewSkills = () => {
-    setSkillsList((prev) => [
-      ...prev,
+    const updated = [
+      ...skillsList,
       {
         name: "",
         rating: 0,
       },
-    ]);
+    ];
+
+    setSkillsList(updated);
+
+    setResumeInfo((prev) => ({
+      ...prev,
+      skills: updated,
+    }));
   };
 
   // Remove Skill
@@ -55,21 +57,33 @@ const Skills = ({ enableNext }) => {
       return;
     }
 
-    setSkillsList((prev) => prev.slice(0, -1));
+    const updated = skillsList.slice(0, -1);
+
+    setSkillsList(updated);
+
+    setResumeInfo((prev) => ({
+      ...prev,
+      skills: updated,
+    }));
   };
 
   // Handle Input Change
   const handleChange = (index, field, value) => {
-    setSkillsList((prev) =>
-      prev.map((item, i) =>
-        i === index
-          ? {
-              ...item,
-              [field]: value,
-            }
-          : item
-      )
+    const updated = skillsList.map((item, i) =>
+      i === index
+        ? {
+          ...item,
+          [field]: value,
+        }
+        : item
     );
+
+    setSkillsList(updated);
+
+    setResumeInfo((prev) => ({
+      ...prev,
+      skills: updated,
+    }));
   };
 
   // Save Skills

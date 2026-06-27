@@ -76,6 +76,7 @@ function Education({ enableNext }) {
   };
 
   const onSave = async () => {
+
     setLoading(true);
 
     const data = {
@@ -90,9 +91,7 @@ function Education({ enableNext }) {
         params.resumeId,
         data
       );
-
       console.log("Save Response:", resp);
-
       toast.success("Education details updated!");
       enableNext(true);
     } catch (error) {
